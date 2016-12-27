@@ -23,6 +23,12 @@ bool Message::isRead()
 	return read_;
 }
 
+MessageBox::MessageBox(){
+	CurrentSize = 0;
+	firstNode = NULL;
+}
+
+
 void MessageBox::Add(Message newMessage) {
 	MessageBox messageBox;
 	messageBox = new MessageBox;
