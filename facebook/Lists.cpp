@@ -1,6 +1,5 @@
 #include<iostream>
 #include "Lists.H"
-#include "defs.H"
 NodeFollower::NodeFollower(){
 	currentSize_ = 0;
 	iterator_ = NULL;
@@ -31,6 +30,7 @@ Result NodeFollower::ListAdd(Follower* follower) {
 	newFollowerNode->next_ = firstNode_;
 	firstNode_ = newFollowerNode;
 	currentSize_++;
+	return SUCCESS;
 }
 
 Follower* NodeFollower::ReturnIteratorData() const{
@@ -63,6 +63,21 @@ int NodeFollower::ListSize() const{
 	return currentSize_;
 }
 
+bool NodeFollower::CheckNoEmailExist(string email) const {
+	NodeFollower* nodeFollower = firstNode_;
+	while (nodeFollower)
+	{
+		if (nodeFollower->follower_.GetEmail() == email)
+			return false;
+		nodeFollower = nodeFollower->next_;
+	}
+	return true;
+}
+
+Result PrintAllMember()const;
+{
+
+}
 /************************LEADER****************/
 
 
@@ -96,6 +111,7 @@ Result NodeLeader::ListAdd(Leader* leader) {
 	newLeaderNode->next_ = firstNode_;
 	firstNode_ = newLeaderNode;
 	currentSize_++;
+	return SUCCESS;
 }
 
 Leader* NodeLeader::ReturnIteratorData() const{
@@ -126,4 +142,14 @@ Result NodeLeader::ListRemove() {
 
 int NodeLeader::ListSize() const{
 	return currentSize_;
+}
+bool NodeLeader::CheckNoEmailExist(string email) const {
+	NodeLeader* nodeLeader = firstNode_;
+	while (nodeLeader)
+	{
+		if (nodeLeader->leader_.GetEmail() == email)
+			return false;
+		nodeLeader = nodeLeader->next_;
+	}
+	return true;
 }

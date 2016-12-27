@@ -26,7 +26,7 @@ public:
 	Follower* ReturnIteratorData()const;
 	Result ListRemove();
 	int ListSize()const;
-	Result CheckEmailExist(string email);
+	bool CheckNoEmailExist(string email) const;
 };
 
 
@@ -47,7 +47,7 @@ public:
 	Leader* ReturnIteratorData()const;
 	Result ListRemove();
 	int ListSize()const;
-	Result CheckEmailExist(string email);
+	bool CheckNoEmailExist(string email)const;
 };
 
 
