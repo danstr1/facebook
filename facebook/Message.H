@@ -29,7 +29,13 @@ public:
 	int UnreadSize();
 	void Print();
 	Result ReadMessage(int messageNum);
+
 private:
-	// To do
+	Message message_;
+	MessageBox* next;
+	//static MessageBox* iterator;
+	static int CurrentSize;
+	static MessageBox* firstNode;
 };
+
 #endif

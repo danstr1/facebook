@@ -22,3 +22,13 @@ bool Message::isRead()
 {
 	return read_;
 }
+
+void MessageBox::Add(Message newMessage) {
+	MessageBox messageBox;
+	messageBox = new MessageBox;
+}
+
+int MessageBox::Size();
+int MessageBox::UnreadSize();
+void MessageBox::Print();
+Result MessageBox::ReadMessage(int messageNum);
