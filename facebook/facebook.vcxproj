@@ -146,12 +146,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Follower.C" />
-    <ClCompile Include="Leader.C" />
-    <ClCompile Include="Lists.C" />
-    <ClCompile Include="main.C" />
-    <ClCompile Include="Message.C" />
-    <ClCompile Include="SocialNetwork.C" />
+    <ClCompile Include="Follower.cpp" />
+    <ClCompile Include="Leader.cpp" />
+    <ClCompile Include="Lists.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="SocialNetwork.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defs.H" />

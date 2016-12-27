@@ -15,22 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Follower.C">
+    <ClCompile Include="Follower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Leader.C">
+    <ClCompile Include="Leader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Lists.C">
+    <ClCompile Include="Lists.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.C">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Message.C">
+    <ClCompile Include="Message.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SocialNetwork.C">
+    <ClCompile Include="SocialNetwork.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
