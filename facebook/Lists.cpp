@@ -26,14 +26,14 @@ Result NodeFollower::ListAdd(Follower* follower) {
 	if (follower == NULL)
 		return FAILURE;
 	NodeFollower* newFollowerNode = new NodeFollower;
-	Follower *newFollower = follower.cpy();
+	Follower *newFollower = follower.Copy();
 	newFollowerNode->follower_ = newFollower;
 	newFollowerNode->next_ = firstNode_;
 	firstNode_ = newFollowerNode;
 	currentSize_++;
 }
 
-Follower* NodeFollower::ReturnIteratorData() {
+Follower* NodeFollower::ReturnIteratorData() const{
 	return iterator_->follower_;
 }
 
@@ -59,7 +59,7 @@ Result NodeFollower::ListRemove() {
 	return SUCCESS;
 }
 
-int NodeFollower::ListSize() {
+int NodeFollower::ListSize() const{
 	return currentSize_;
 }
 
@@ -91,14 +91,14 @@ Result NodeLeader::ListAdd(Leader* leader) {
 	if (leader == NULL)
 		return FAILURE;
 	NodeLeader* newLeaderNode = new NodeLeader;
-	Leader *newLeader = leader.cpy();
+	Leader *newLeader = leader.Copy();
 	newLeaderNode->leader_ = newLeader;
 	newLeaderNode->next_ = firstNode_;
 	firstNode_ = newLeaderNode;
 	currentSize_++;
 }
 
-Leader* NodeLeader::ReturnIteratorData() {
+Leader* NodeLeader::ReturnIteratorData() const{
 	return iterator_->leader_;
 }
 
@@ -124,6 +124,6 @@ Result NodeLeader::ListRemove() {
 	return SUCCESS;
 }
 
-int NodeLeader::ListSize() {
+int NodeLeader::ListSize() const{
 	return currentSize_;
 }
