@@ -1,6 +1,8 @@
 #include<iostream>
 #include "Lists.H"
-#include "defs.H"
+
+
+
 NodeFollower::NodeFollower(){
 	currentSize_ = 0;
 	iterator_ = NULL;
@@ -31,6 +33,10 @@ Result NodeFollower::ListAdd(Follower* follower) {
 	newFollowerNode->next_ = firstNode_;
 	firstNode_ = newFollowerNode;
 	currentSize_++;
+}
+
+Result NodeFollower::CheckEmailExists(string email) {
+
 }
 
 Follower* NodeFollower::ReturnIteratorData() {
