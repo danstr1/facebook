@@ -24,6 +24,8 @@ private:
 class MessageBox
 {
 public:
+	MessageBox();
+	~MessageBox();
 	void Add(Message newMessage);
 	int Size();
 	int UnreadSize();
