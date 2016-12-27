@@ -150,7 +150,6 @@
     <ClCompile Include="Leader.C" />
     <ClCompile Include="Lists.C" />
     <ClCompile Include="main.C" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.C" />
     <ClCompile Include="SocialNetwork.C" />
   </ItemGroup>
