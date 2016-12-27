@@ -20,9 +20,9 @@ public:
 	Follower* SetIteratorFirst();
 	Follower* SetIteratorNext();
 	Result ListAdd(Follower* follower);
-	Follower* ReturnIteratorData();
+	Follower* ReturnIteratorData()const;
 	Result ListRemove();
-	int ListSize();
+	int ListSize()const;
 };
 
 
@@ -40,9 +40,9 @@ public:
 	Leader* SetIteratorFirst();
 	Leader* SetIteratorNext();
 	Result ListAdd(Leader* leader);
-	Leader* ReturnIteratorData();
+	Leader* ReturnIteratorData()const;
 	Result ListRemove();
-	int ListSize();
+	int ListSize()const;
 };
 
 
