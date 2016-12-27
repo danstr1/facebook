@@ -36,7 +36,7 @@ private:
 	Message message_;
 	MessageBox* next;
 	//static MessageBox* iterator;
-	static int CurrentSize;
+	static int currentSize;
 	static MessageBox* firstNode;
 };
 
