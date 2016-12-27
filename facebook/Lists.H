@@ -9,10 +9,10 @@ class Leader;
 class NodeFollower {
 private:
 	int follower_;
-	NodeFollower* next;
-	static NodeFollower* iterator;
-	static int CurrentSize;
-	static NodeFollower* firstNode;
+	NodeFollower* next_;
+	static NodeFollower* iterator_;
+	static int currentSize_;
+	static NodeFollower* firstNode_;
 
 public:
 	NodeFollower();
