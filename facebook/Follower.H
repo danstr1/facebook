@@ -12,8 +12,8 @@ public:
     string GetName() const;
 	string GetEmail() const;
 	bool isPassword(string password) const;
-	Result ShowFriendRequests() const;
-	Result ShowFriendList() const;
+	Result ShowFriendRequests();
+	Result ShowFriendList();
 	Result SendFriendRequest(string email);
 	Result AcceptFriendRequest(string email);
 	Result	RemoveFriend(string email);
