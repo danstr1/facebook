@@ -18,5 +18,43 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Follower.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Leader.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lists.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Message.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SocialNetwork.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Follower.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Leader.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lists.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SocialNetwork.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="defs.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

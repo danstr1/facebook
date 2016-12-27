@@ -146,7 +146,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Follower.C" />
+    <ClCompile Include="Leader.C" />
+    <ClCompile Include="Lists.C" />
+    <ClCompile Include="main.C" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Message.C" />
+    <ClCompile Include="SocialNetwork.C" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="defs.H" />
+    <ClInclude Include="Follower.H" />
+    <ClInclude Include="Leader.H" />
+    <ClInclude Include="Lists.H" />
+    <ClInclude Include="Message.H" />
+    <ClInclude Include="SocialNetwork.H" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
