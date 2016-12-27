@@ -7,7 +7,6 @@
 using namespace std;
 
 
-
 int stringToInt(const string s) {
   istringstream istr(s);
   int i = 0;
