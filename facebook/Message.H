@@ -34,10 +34,10 @@ public:
 
 private:
 	Message message_;
-	MessageBox* next;
+	MessageBox* next_;
 	//static MessageBox* iterator;
-	static int currentSize;
-	static MessageBox* firstNode;
+	static int currentSize_;
+	static MessageBox* firstNode_;
 };
 
 #endif
