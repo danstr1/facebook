@@ -27,9 +27,9 @@ public:
 	MessageBox();
 	~MessageBox();
 	void Add(Message newMessage);
-	int Size();
-	int UnreadSize();
-	void Print();
+	int Size()const;
+	int UnreadSize()const;
+	void Print()const;
 	Result ReadMessage(int messageNum);
 
 private:
