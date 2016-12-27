@@ -23,7 +23,8 @@ public:
 	Follower* ReturnIteratorData();
 	Result ListRemove();
 	int ListSize();
-};
+};
+
 
 
 
