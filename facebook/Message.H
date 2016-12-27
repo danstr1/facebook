@@ -9,6 +9,7 @@ using namespace std;
 class Message {
 public:
     Message(string source, string subject, string content);
+	Message();
     void Display(int num) const;
     void Read();
 	bool isRead();
