@@ -24,8 +24,8 @@ bool Message::isRead()
 }
 
 MessageBox::MessageBox(){
-	currentSize = 0;
-	firstNode = NULL;
+	currentSize_ = 0;
+	firstNode_ = NULL;
 }
 MessageBox::~MessageBox() {
 	return;
