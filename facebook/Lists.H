@@ -11,7 +11,7 @@ private:
 	int follower_;
 	NodeFollower* next;
 	static NodeFollower* iterator;
-	static int CurrentSize;
+	static int currentSize_;
 	static NodeFollower* firstNode;
 
 public:
