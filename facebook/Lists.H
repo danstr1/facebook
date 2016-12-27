@@ -8,7 +8,7 @@ class Leader;
 
 class NodeFollower {
 private:
-	int follower_;
+	Follower follower_;
 	NodeFollower* next_;
 	static NodeFollower* iterator_;
 	static int currentSize_;
@@ -26,7 +26,24 @@ public:
 };
 
 
+class NodeLeader {
+private:
+	Leader leader_;
+	NodeLeader* next_;
+	static NodeLeader* iterator_;
+	static int currentSize_;
+	static NodeLeader* firstNode_;
 
+public:
+	NodeLeader();
+	~NodeLeader();
+	Leader* SetIteratorFirst();
+	Leader* SetIteratorNext();
+	Result ListAdd(Leader* leader);
+	Leader* ReturnIteratorData();
+	Result ListRemove();
+	int ListSize();
+};
 
 
 
