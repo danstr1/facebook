@@ -40,9 +40,13 @@ void MessageBox::Add(Message newMessage) {
 	currentSize++;
 }
 
-int MessageBox::Size() {
-	return currentSize
+int MessageBox::Size() const {
+	return currentSize;
 }
-int MessageBox::UnreadSize();
-void MessageBox::Print();
+
+int MessageBox::UnreadSize() const {
+	int count = 0;
+	
+}
+void MessageBox::Print() const;
 Result MessageBox::ReadMessage(int messageNum);
