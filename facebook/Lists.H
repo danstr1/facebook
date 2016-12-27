@@ -1,7 +1,10 @@
 #ifndef _LISTS_H_
 #define _LISTS_H_
+#include <string>
 
 #include "defs.H"
+
+using std::string;
 
 class Follower;
 class Leader;
@@ -23,6 +26,7 @@ public:
 	Follower* ReturnIteratorData()const;
 	Result ListRemove();
 	int ListSize()const;
+	Result CheckEmailExist(string email);
 };
 
 
@@ -43,6 +47,7 @@ public:
 	Leader* ReturnIteratorData()const;
 	Result ListRemove();
 	int ListSize()const;
+	Result CheckEmailExist(string email);
 };
 
 
