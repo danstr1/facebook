@@ -24,17 +24,25 @@ bool Message::isRead()
 }
 
 MessageBox::MessageBox(){
-	CurrentSize = 0;
+	currentSize = 0;
 	firstNode = NULL;
 }
-
-
-void MessageBox::Add(Message newMessage) {
-	MessageBox messageBox;
-	messageBox = new MessageBox;
+MessageBox::~MessageBox() {
+	return;
 }
 
-int MessageBox::Size();
+void MessageBox::Add(Message newMessage) {
+	MessageBox* messageBox;
+	messageBox = new MessageBox;
+	messageBox->message_ = newMessage;
+	messageBox->next = firstNode;
+	firstNode = messageBox;
+	currentSize++;
+}
+
+int MessageBox::Size() {
+	return currentSize
+}
 int MessageBox::UnreadSize();
 void MessageBox::Print();
 Result MessageBox::ReadMessage(int messageNum);
