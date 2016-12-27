@@ -2,7 +2,7 @@
 #define _FOLLOWER_H_
 
 #include "defs.H"
-
+#include <string.h>
 
 class Follower {
 public:
