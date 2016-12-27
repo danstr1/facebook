@@ -23,10 +23,17 @@ bool Message::isRead()
 	return read_;
 }
 
+Message::Message() {
+	return;
+}
+
 MessageBox::MessageBox(){
+	message_ = NULL;
 	currentSize = 0;
 	firstNode = NULL;
+	next_ = NULL;
 }
+
 MessageBox::~MessageBox() {
 	return;
 }
