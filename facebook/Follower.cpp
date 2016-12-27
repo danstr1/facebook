@@ -55,25 +55,49 @@ Result Follower::ShowFriendList() {
 	return SUCCESS;
 }
 Result Follower::SendFriendRequest(string email) {
-	if (connectedUser == NULL || connectedUser->email == email) {
+	if (/*connectedUser == NULL || connectedUser->*/email_ == email) {
 		std::cout << SEND_FRIEND_REQUEST_FAIL;
 		return FAILURE;
 	}
 	Follower *curFriend = curFollower.SetIteratorFirst();
 	int i = 0;
+	while (curFriend != NULL) //loop for folllowers with the same email
+	{
+		if (curFriend->email_!= email_ && curFriend->email_ == email) {
+			if (curFriend->friendList_.CheckNoEmailExist(email_) == false) {
+				std::cout << SEND_FRIEND_REQUEST_FAIL;
+				return FAILURE;
+			}
+
+			curFriend->friendRequst_.ListAdd(connectedUser);
+			std::cout << SEND_FRIEND_REQUEST_SUCCESS;
+			return SUCCESS;
+		}
+		curFriend.SetIteratorNext();
+	}
+	curFriend = curLeader.SetIteratorFirst(); //loop for leaders with the same email
 	while (curFriend != NULL)
 	{
-		if (curFriend->email_ == email) {
+		if (curFriend->email_ != connectedUser->email && curFriend->email_ == email) {
 			if (curFriend->friendList_.CheckNoEmailExist(connectedUser->email) == false) {
 				std::cout << SEND_FRIEND_REQUEST_FAIL;
 				return FAILURE;
 			}
 			curFriend->friendRequst_.ListAdd(connectedUser);
+			std::cout << SEND_FRIEND_REQUEST_SUCCESS;
+			return SUCCESS;
 		}
 		curFriend.SetIteratorNext();
 	}
+	std::cout << SEND_FRIEND_REQUEST_FAIL;
+	return FAILURE;
 }
-Result Follower::AcceptFriendRequest(string email);
+
+Result Follower::AcceptFriendRequest(string email) {
+	if (currentUser == NULL)
+		return FAILURE;
+	connectedUser->friendRequest_
+}
 Result Follower::RemoveFriend(string email);
 Result Follower::ShowFriendRequests();
 Result Follower::ReadMessage(int messageNumber);

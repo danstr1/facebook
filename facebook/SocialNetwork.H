@@ -1,6 +1,6 @@
 #ifndef _SOCIALNETWORK_H
 #define _SOCIALNETWORK_H
-
+#include "Lists.H"
 #include "defs.H"
 #include <string>
 using namespace std;
@@ -40,7 +40,12 @@ public:
 	// General actions
 	void FindUser(string partialName);
 private:
-    // To do
+	string netName_;
+	string netPass_;
+	NodeFollower listFollower_;
+	NodeLeader listLeader_;
+	* userIdentity
+	bool isUserConnected_
 };
 
 #endif
