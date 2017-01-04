@@ -24,34 +24,50 @@ Follower* SocialNetwork::FindUserByEmail(string email)
 	return NULL;
 }
 
-if (currentUser.checkNoEmailExists(email) == false || curLeader.checkNoEmailExists(email) == false) {
-	std::cout << CREATE_FOLLOWER_FAIL;
-	return FAILURE;
-} //to be inserted in Create follower
-if (typeCurrentUser == NOT_CONNECTED || typeCurrentUser == FOLLOWER) {
-	std::cout << CREATE_FOLLOWER_FAIL;
-	return FAILURE;
+void SocialNetwork::CreateLeader(string name, string email, string password)
+{
+	if (typeCurrentUser_ != ADMIN)	{
+		cout << CREATE_LEADER_FAIL;
+		return;
+	}
+	Follower *followerToCheck = FindUserByEmail(email);
+	if (followerToCheck != NULL) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE
+		cout << CREATE_LEADER_FAIL;
+		return;
+	}
+	Leader* newLeader = new Leader(name, email, password);
+	listFollower_.ListAdd(newLeader);
+	cout << CREATE_LEADER_SUCCESS;
+
+
 }
-Follower* newFollower = new Follower(name, email, password);
-if (currentUser.ListAdd(newFollower)) {
-	std::cout << CREATE_FOLLOWER_FAIL;
-	return FAILURE;
+void SocialNetwork::Follow(string leaderEmail)
+{
+	if (typeCurrentUser_ == ADMIN|| typeCurrentUser_ == NOT_CONNECTED) {
+		cout << FOLLOW_FAIL;
+		return;
+	}
+	Follower *followerToFollow = FindUserByEmail(leaderEmail);
+	if (followerToFollow == NULL) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE
+		cout << FOLLOW_FAIL;
+		return;
+	}
+	if (followerToFollow->)
 }
-return SUCCESS;
 void SocialNetwork::CreateFollower(string name, string email, string password)
 {
 	if (typeCurrentUser_ != ADMIN) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE
-		cout << CREATE_LEADER_FAIL;
+		cout << CREATE_FOLLOWER_FAIL;
 		return;
 	}
 	Follower *followerToCheck = FindUserByEmail(email); 
 	if (followerToCheck!=NULL) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE
-		cout << CREATE_LEADER_FAIL;
+		cout << CREATE_FOLLOWER_FAIL;
 		return;
 	}
 	Follower* newFollower = new Follower(name, email, password);
 	listFollower_.ListAdd(newFollower);
-
+	cout << CREATE_FOLLOWER_SUCCESS;
 }
 void SocialNetwork::ShowFriendRequests()
 {
@@ -92,7 +108,42 @@ void SocialNetwork::RemoveFriend(string friendEmail)
 	}
 	std::cout << REMOVE_FRIEND_SUCCESS;
 }
+void SocialNetwork::ShowMessageList()
+{
+	if (typeCurrentUser_ == 0) {
+		std::cout << SHOW_MESSAGE_LIST_FAIL;
+		return;
+	}
+	userConnected_->MessegeListHelper();
+}
 
+void SocialNetwork::ReadMessage(int messageNum)
+{
+	if (typeCurrentUser_ == 0) {
+		std::cout << READ_MESSAGE_FAIL;
+		return;
+	}
+	userConnected_->ReadMessegeListHelper(messageNum);
+}
+
+void SocialNetwork::SendMessage(string email, string subject, string content)
+{
+	if (typeCurrentUser_ == 0) {
+		std::cout << SEND_MESSAGE_FAIL;
+		return;
+	}
+	Follower *friendToSend = FindUserByEmail(email); //find the mail of the person that we will send him the messege
+	if (friendToSend == NULL) {
+		std::cout << SEND_MESSAGE_FAIL;
+		return;
+	}
+	if (userConnected_->CheckIfFriend(friendToSend) == FAILURE) {
+		std::cout << SEND_MESSAGE_FAIL;
+		return;
+	}
+	friendToSend->HelperSendMessage(userConnected_->GetEmail(), subject, content);
+	cout << SEND_MESSAGE_SUCCESS;
+}
 
 void SocialNetwork::SendFriendRequest(string friendEmail)
 {

@@ -27,14 +27,14 @@ class MessageBox
 public:
 	MessageBox(int i);
 	~MessageBox();
-	void Add(Message newMessage);
+	void Add(Message* newMessage);
 	int Size()const;
 	int UnreadSize()const;
 	void Print()const;
 	Result ReadMessage(int messageNum);
 
 private:
-	Message message_;
+	Message* message_;
 	MessageBox* next_;
 	//static MessageBox* iterator;
 	static int currentSize_;

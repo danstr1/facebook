@@ -23,8 +23,12 @@ public:
 	Result AddUserToFriendRequest(Follower* toBeInserted);
 	Result CheckIfFriend(Follower* toBeChecked);
 	Result CheckIfFriendRequest(Follower* toBeChecked);
+	void MessegeListHelper();
+	void ReadMessegeListHelper(int num);
+	void HelperSendMessage(string email, string subject, string content);
 	void PrintF(Follower* toBeChecked);
-
+	void setLeader(bool isLeader);
+	bool isLeader();
 
 	void Destroy();
 	Follower* Copy();
@@ -36,6 +40,7 @@ private:
 	NodeFollower friendList_;
 	NodeFollower friendRequst_;
 	MessageBox messageList_;
+	bool isLeader_;
 };
 
 

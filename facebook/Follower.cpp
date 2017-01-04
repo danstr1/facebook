@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Follower.H"
 
-Follower::Follower(string name, string email, string password) : name_(name), email_(email), password_(password), friendList_(NULL),friendRequst_(NULL),messageList_(NULL) {}
+Follower::Follower(string name, string email, string password) : name_(name), email_(email), password_(password), friendList_(NULL), friendRequst_(NULL), messageList_(NULL), isLeader_(false) {}
 
 string Follower::GetName() const {
 	return name_;
@@ -103,6 +103,40 @@ Result Follower::CheckIfFriendRequest(Follower* toBeChecked) {
 	}
 	return FAILURE;
 
+}
+void Follower::MessegeListHelper()
+{
+	messageList_.Print();
+}
+void Follower::ReadMessegeListHelper(int num)
+{
+	int countMessegesFollower = messageList_.Size();
+	if (num > countMessegesFollower || num <= 0) {
+		cout << READ_MESSAGE_FAIL;
+		return;
+	}
+	messageList_.ReadMessage(num);
+	
+}
+void Follower::HelperSendMessage(string email, string subject, string content)
+{
+	Message* newMessage = new Message(email, subject, content);
+	messageList_.Add(newMessage);
+
+
+
+}
+
+void Follower::setLeader(bool isLeader)
+{
+	if (isLeader == true)
+		isLeader_ = true;
+	else
+		isLeader_ = false;
+}
+bool Follower::isLeader()
+{
+	return isLeader_;
 }
 
 void Destroy();

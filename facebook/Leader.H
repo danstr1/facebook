@@ -6,13 +6,16 @@
 class Leader : public Follower{
 
 
+public:
+	Leader(string name, string email, string password) : Follower(name, email, password), followList_(NULL) { setLeader(true); }
 
+	Result AddFollower();
+	Result RemoveFollower();
+	int NumFollowers();
+	Result MessegeAll();
 
-
-
-
-
-
+private:
+	NodeFollower followList_;
 
 
 

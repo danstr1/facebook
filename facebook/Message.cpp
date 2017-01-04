@@ -37,7 +37,7 @@ MessageBox::~MessageBox() {
 	return;
 }
 
-void MessageBox::Add(Message newMessage) {
+void MessageBox::Add(Message* newMessage) {
 	MessageBox* messageBox;
 	messageBox = new MessageBox;
 	messageBox->message_ = newMessage;
@@ -55,7 +55,7 @@ int MessageBox::UnreadSize() const {
 	MessageBox* messageBox=firstNode_;
 	while (messageBox)
 	{
-		if (messageBox->message_.isRead() == false)
+		if (messageBox->message_->isRead() == false)
 			count++;
 		messageBox = messageBox->next_;
 	}
@@ -67,7 +67,7 @@ void MessageBox::Print() const {
 	MessageBox* messageBox = firstNode_;
 	while (messageBox)
 	{
-		messageBox->message_.Display(count);
+		messageBox->message_->Display(count);
 		count++;
 		messageBox = messageBox->next_;
 	}
@@ -78,9 +78,10 @@ Result MessageBox::ReadMessage(int messageNum) {
 	while (messageBox)
 	{
 		messageBox--;
+		Message *curMessage = messageBox->message_;
 		//If messageNum is 0, we get to the desired messege which should be read
 		if (messageNum == 0) //check this!!!!
-			messageBox->message_.Read();
+			READ_MESSAGE_SUCCESS
 		messageBox = messageBox->next_;
 	}
 }
