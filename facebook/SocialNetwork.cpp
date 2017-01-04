@@ -4,27 +4,24 @@
 
 Follower* SocialNetwork::FindUserByEmail(string email)
 {
-	
 	Follower* curFollower = listFollower_.SetIteratorFirst();
 	// Loop over all followers in network
 	for (int i = 0; curFollower!=NULL; ++i)
 	{
-		? ? ? ? ? ? ? ? ? ? ? ? ? ? ?
-			if (curFollower->GetName().find(partialName) != string::npos)
-				cout << i + 1 << ") " << curFollower->GetName() << ": " << curFollower->GetEmail() << endl;
-		curFollower = listFollower_.Set
+		if (curFollower->GetEmail() == email)
+			return curFollower;
+		curFollower = listFollower_.SetIteratorNext();
 	}
 
-	cout << "Leaders:" << endl;
-	// Loop over all leaders in network
-	for (int i = 0; ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ; ++i)
+	Leader* curLeader = listLeader_.SetIteratorFirst();
+	// Loop over all followers in network
+	for (int i = 0; curLeader != NULL; ++i)
 	{
-		? ? ? ? ? ? ? ? ? ? ? ? ? ? ?
-			if (curLeader->GetName().find(partialName) != string::npos)
-				cout << i + 1 << ") " << curLeader->GetName() << ": " << curLeader->GetEmail() << endl;
-		? ? ? ? ? ? ? ? ? ? ? ? ? ? ?
+		if (curLeader->GetEmail() == email)
+			return curLeader;
+		curLeader = listLeader_.SetIteratorNext();
 	}
-
+	return NULL;
 }
 
 if (currentUser.checkNoEmailExists(email) == false || curLeader.checkNoEmailExists(email) == false) {
@@ -41,53 +38,98 @@ if (currentUser.ListAdd(newFollower)) {
 	return FAILURE;
 }
 return SUCCESS;
-Result CreateFollower(string name, string email, string password, Follower* currentUser, int typeCurrentUser);
-
-void SendFriendRequest(string friendEmail)
+void SocialNetwork::CreateFollower(string name, string email, string password)
 {
+	if (typeCurrentUser_ != ADMIN) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE
+		cout << CREATE_LEADER_FAIL;
+		return;
+	}
+	Follower *followerToCheck = FindUserByEmail(email); 
+	if (followerToCheck!=NULL) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE
+		cout << CREATE_LEADER_FAIL;
+		return;
+	}
+	Follower* newFollower = new Follower(name, email, password);
+	listFollower_.ListAdd(newFollower);
 
-	if (typeCurrentUser == 0 || currentUser->email_ == email) {
-		std::cout << SEND_FRIEND_REQUEST_FAIL;
-		return FAILURE;
-	}
-	Follower *curFriend = curFollower.SetIteratorFirst();
-	int i = 0;
-	while (curFriend != NULL) //loop for folllowers with the same email
-	{
-		if (curFriend->email_ != email_ && curFriend->email_ == email) {
-			if (curFriend->friendList_.CheckNoEmailExist(email_) == false) {
-				std::cout << SEND_FRIEND_REQUEST_FAIL;
-				return FAILURE;
-			}
-
-			curFriend->friendRequst_.ListAdd(connectedUser);
-			std::cout << SEND_FRIEND_REQUEST_SUCCESS;
-			return SUCCESS;
-		}
-		curFriend.SetIteratorNext();
-	}
-	curFriend = curLeader.SetIteratorFirst(); //loop for leaders with the same email
-	while (curFriend != NULL)
-	{
-		if (curFriend->email_ != connectedUser->email && curFriend->email_ == email) {
-			if (curFriend->friendList_.CheckNoEmailExist(connectedUser->email) == false) {
-				std::cout << SEND_FRIEND_REQUEST_FAIL;
-				return FAILURE;
-			}
-			curFriend->friendRequst_.ListAdd(connectedUser);
-			std::cout << SEND_FRIEND_REQUEST_SUCCESS;
-			return SUCCESS;
-		}
-		curFriend.SetIteratorNext();
-	}
-	std::cout << SEND_FRIEND_REQUEST_FAIL;
-	return FAILURE;
 }
-void AcceptFriendRequest(string friendEmail) {
+void SocialNetwork::ShowFriendRequests()
+{
+	if (typeCurrentUser_ == NOT_CONNECTED|| typeCurrentUser_==ADMIN) {
+		cout << SHOW_FRIEND_REQUESTS_FAIL;
+		return;
+	}
+	userConnected_->ShowFriendRequests();
+}
+void SocialNetwork::ShowFriendList()
+{
+	if (typeCurrentUser_ == NOT_CONNECTED || typeCurrentUser_ == ADMIN) {
+		cout << SHOW_FRIEND_LIST_FAIL;
+		return;
+	}
+	userConnected_->ShowFriendList();
+}
+void SocialNetwork::RemoveFriend(string friendEmail)
+{
+	if (typeCurrentUser_ == 0 || userConnected_->GetEmail() == friendEmail) {
+		std::cout << REMOVE_FRIEND_FAIL;
+		return;
+	}
+	Follower *friendToRemove = FindUserByEmail(friendEmail); //find the mail of the person that we will send him the request
+	if (friendToRemove == NULL) {
+		std::cout << REMOVE_FRIEND_FAIL;
+		return;
+	}
+	if (userConnected_->CheckIfFriend(friendToRemove) == FAILURE) {
+		std::cout << REMOVE_FRIEND_FAIL;
+		return;
+	}
+	if (userConnected_->RemoveFriend(friendToRemove) == FAILURE
+		|| friendToRemove->RemoveFriend(userConnected_) == FAILURE)
+	{
+		std::cout << REMOVE_FRIEND_FAIL;
+		return;
+	}
+	std::cout << REMOVE_FRIEND_SUCCESS;
+}
 
-	if (currentUser == NULL)
-		return FAILURE;
-	connectedUser->friendRequest_
+
+void SocialNetwork::SendFriendRequest(string friendEmail)
+{
+	if (typeCurrentUser_ == 0 || userConnected_->GetEmail() == friendEmail) {
+		std::cout << SEND_FRIEND_REQUEST_FAIL;
+		return;
+	}
+	Follower *friendToAdd=FindUserByEmail(friendEmail); //find the mail of the person that we will send him the request
+	if (friendToAdd==NULL ){
+		std::cout << SEND_FRIEND_REQUEST_FAIL;
+		return;
+	}
+	if (friendToAdd->CheckIfFriend(userConnected_) == SUCCESS
+		|| friendToAdd->CheckIfFriendRequest(userConnected_) == SUCCESS
+		|| friendToAdd->AddUserToFriendRequest(userConnected_) == FAILURE) {
+
+		cout << SEND_FRIEND_REQUEST_FAIL;
+		return;
+	}
+	std::cout << SEND_FRIEND_REQUEST_SUCCESS;
+}
+
+void SocialNetwork::AcceptFriendRequest(string friendEmail) {
+	if (userConnected_ == NULL) {
+		cout << ACCEPT_FRIEND_REQUEST_FAIL;
+		return;
+	}
+	Follower* friendToAccept = FindUserByEmail(friendEmail);
+	
+	if (friendToAccept == NULL|| userConnected_->RemoveFriendRequest(friendToAccept) == FAILURE) {
+		cout << ACCEPT_FRIEND_REQUEST_FAIL;
+		return;
+	}
+	userConnected_->AddUserToFriendList(friendToAccept);
+	friendToAccept->AddUserToFriendList(userConnected_);
+	cout << ACCEPT_FRIEND_REQUEST_SUCCESS;
+		
 }
 
 // General actions

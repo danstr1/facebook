@@ -2,7 +2,12 @@
 #define _SOCIALNETWORK_H
 #include "Lists.H"
 #include "defs.H"
+#include "Leader.H"
 #include <string>
+#define NOT_CONNECTED 0
+#define FOLLOWER 1
+#define LEADER 2
+#define ADMIN 3
 using namespace std;
 class SocialNetwork {
 public:
@@ -44,6 +49,7 @@ private:
 	NodeFollower listFollower_;
 	NodeLeader listLeader_;
 	Follower* userConnected_;
+	int typeCurrentUser_;
 };
 
 #endif

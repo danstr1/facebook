@@ -9,6 +9,7 @@ NodeFollower::~NodeFollower() {
 //write this!!!!!!!!!!!!!!!!!!!!!
 }
 
+
 Follower* NodeFollower::SetIteratorFirst() {
 	iterator_ = firstNode_;
 	return iterator_->follower_;
@@ -37,7 +38,7 @@ Follower* NodeFollower::ReturnIteratorData() const{
 	return iterator_->follower_;
 }
 
-Result NodeFollower::ListRemove() {
+Result NodeFollower::ListRemove() { //removes the first element in the list
 	if (currentSize_ > 0 && firstNode_ == iterator) {
 		NodeFollower* newFollowerNode = iterator->next_;
 		iterator->follower_.Destroy();

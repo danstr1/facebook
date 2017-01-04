@@ -22,27 +22,88 @@ bool Follower::isPassword(string password) const {
 Result Follower::ShowFriendRequests() {
 	//SHOW_FRIEND_REQUESTS_SUCCESS i + 1 << ") " << curRequest->name_ << ": " << curRequest->email_;
 	Follower *curRequest = friendRequst_.SetIteratorFirst();
-	int i = 0;
-	while (curRequest != NULL)
+	for (int i=0; curRequest!= NULL ; i++)
 	{
 		std::cout << SHOW_FRIEND_REQUESTS_SUCCESS;
-		friendRequst_.SetIteratorNext();
+		curRequest=friendRequst_.SetIteratorNext();
 	}
 	return SUCCESS;
 }
 
 Result Follower::ShowFriendList() {
-	Follower *curFriend = friendList_.SetIteratorFirst();
-	int i = 0;
-	while (curFriend != NULL)
+	Follower *curFriend = friendRequst_.SetIteratorFirst();
+	for (int i = 0; curFriend != NULL; i++)
 	{
 		std::cout << SHOW_FRIEND_LIST_SUCCESS;
-		friendRequst_.SetIteratorNext();
+		curFriend = friendRequst_.SetIteratorNext();
 	}
 	return SUCCESS;
 }
-void AcceptFriendRequest(Follower* follweToBeAccept) {
+
+Result Follower::RemoveFriendRequest(Follower* toBeRemoved)
+{
+	Follower* curFollower = friendRequst_.SetIteratorFirst();
+	// Loop over all followers in network
+	for (int i = 0; curFollower != NULL; ++i)
+	{
+		if (curFollower->email_ == toBeRemoved->email_) {
+			curFollower->friendRequst_.ListRemove();
+			return SUCCESS;
+		}
+		curFollower = friendRequst_.SetIteratorNext();
+	}
+	return FAILURE;
+}
+Result Follower::RemoveFriend(Follower* toBeRemoved)
+{
+	Follower* curFollower = friendList_.SetIteratorFirst();
+	// Loop over all followers in network
+	for (int i = 0; curFollower != NULL; ++i)
+	{
+		if (curFollower->email_ == toBeRemoved->email_) {
+			curFollower->friendList_.ListRemove();
+			return SUCCESS;
+		}
+		curFollower = friendList_.SetIteratorNext();
+	}
+	return FAILURE;
+}
+Result Follower::AddUserToFriendList(Follower* toBeInserted) {
+
+	if (friendList_.ListAdd(toBeInserted) == FAILURE)
+		return FAILURE;
+	return SUCCESS;
 
 }
+Result Follower::AddUserToFriendRequest(Follower* toBeInserted) {
+	if (friendRequst_.ListAdd(toBeInserted) == FAILURE)
+		return FAILURE;
+	return SUCCESS;
+}
+Result Follower::CheckIfFriend(Follower* toBeChecked) {
+	Follower* curFollower = friendList_.SetIteratorFirst();
+	// Loop over all followers in network
+	for (int i = 0; curFollower != NULL; ++i)
+	{
+		if (curFollower->email_ == toBeChecked->email_)
+			return SUCCESS;
+		curFollower = friendList_.SetIteratorNext();
+	}
+	return FAILURE;
+
+}
+Result Follower::CheckIfFriendRequest(Follower* toBeChecked) {
+	Follower* curFollower = friendRequst_.SetIteratorFirst();
+	// Loop over all followers in network
+	for (int i = 0; curFollower != NULL; ++i)
+	{
+		if (curFollower->email_ == toBeChecked->email_)
+			return SUCCESS;
+		curFollower = friendRequst_.SetIteratorNext();
+	}
+	return FAILURE;
+
+}
+
 void Destroy();
 Follower* Copy();

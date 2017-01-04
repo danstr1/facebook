@@ -4,14 +4,12 @@
 #include "defs.H"
 #include "Message.H"
 #include <string>
-#define NOT_CONNECTED 0
-#define FOLLOWER 1
-#define LEADER 2
+
 using std::string;
 class Follower {
 public:
 	Follower(string name, string email, string password);
-	~Follower();
+	
 	
     string GetName() const;
 	string GetEmail() const;
@@ -19,6 +17,15 @@ public:
 	Result ShowFriendRequests();
 	Result ShowFriendList();
 	Result ShowFriendRequests();
+	Result RemoveFriendRequest(Follower* toBeRemoved);
+	Result RemoveFriend(Follower* toBeRemoved);
+	Result AddUserToFriendList(Follower* toBeInserted);
+	Result AddUserToFriendRequest(Follower* toBeInserted);
+	Result CheckIfFriend(Follower* toBeChecked);
+	Result CheckIfFriendRequest(Follower* toBeChecked);
+	void PrintF(Follower* toBeChecked);
+
+
 	void Destroy();
 	Follower* Copy();
 

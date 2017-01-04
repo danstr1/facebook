@@ -11,7 +11,7 @@ class Leader;
 
 class NodeFollower {
 private:
-	Follower follower_;
+	Follower* follower_;
 	NodeFollower* next_;
 	static NodeFollower* iterator_;
 	static int currentSize_;
@@ -32,7 +32,7 @@ public:
 
 class NodeLeader {
 private:
-	Leader leader_;
+	Leader* leader_;
 	NodeLeader* next_;
 	static NodeLeader* iterator_;
 	static int currentSize_;
