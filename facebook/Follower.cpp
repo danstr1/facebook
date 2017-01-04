@@ -104,6 +104,11 @@ Result Follower::CheckIfFriendRequest(Follower* toBeChecked) {
 	return FAILURE;
 
 }
+string Follower::getPassword()
+{
+	return password_;
+}
+
 void Follower::MessegeListHelper()
 {
 	messageList_.Print();

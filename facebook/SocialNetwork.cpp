@@ -1,6 +1,39 @@
 #include "SocialNetwork.H"
 #include <iostream>
 
+SocialNetwork::SocialNetwork(string name, string password) { 
+	netName_ = name;
+	netPass_ = password;
+	listFollower_ = NULL;
+	listLeader_ = NULL;
+	typeCurrentUser_ = ADMIN;
+	userConnected_ = NULL;
+	
+}
+
+void SocialNetwork::AdminLogin(string password) {
+	if (password != netPass_)
+		cout << ADMIN_LOGIN_FAIL;
+	else
+		cout << ADMIN_LOGIN_SUCCESS;
+}
+
+void SocialNetwork::Login(string email, string password) {
+	Leader *activeFollower = (Leader*)FindUserByEmail(email);
+	if (activeFollower == NULL) {
+		cout << LOGIN_FAIL;
+		return;
+	}
+	if (activeFollower->GetPassword() == password) {
+		cout << LOGIN_SUCCESS;
+		if (activeFollower->isLeader == true)
+			typeCurrentUser_ = LEADER;
+		else
+			typeCurrentUser_ = FOLLOWER;
+		//What with ADMIN?!
+		userConnected_ = activeFollower;
+	}
+}
 
 Follower* SocialNetwork::FindUserByEmail(string email)
 {
@@ -47,13 +80,19 @@ void SocialNetwork::Follow(string leaderEmail)
 		cout << FOLLOW_FAIL;
 		return;
 	}
-	Follower *followerToFollow = FindUserByEmail(leaderEmail);
+	Leader *followerToFollow = (Leader*)FindUserByEmail(leaderEmail);
 	if (followerToFollow == NULL) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE
 		cout << FOLLOW_FAIL;
 		return;
 	}
-	if (followerToFollow->)
+	if (followerToFollow->isLeader() == false) {
+		cout << FOLLOW_FAIL;
+		return;
+	}
+	followerToFollow->AddFollower(userConnected_);
+
 }
+
 void SocialNetwork::CreateFollower(string name, string email, string password)
 {
 	if (typeCurrentUser_ != ADMIN) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE

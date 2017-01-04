@@ -7,9 +7,9 @@ class Leader : public Follower{
 
 
 public:
-	Leader(string name, string email, string password) : Follower(name, email, password), followList_(NULL) { setLeader(true); }
+	Leader(string name, string email, string password) : Follower(name, email, password), followList_( NULL) { setLeader(true); }
 
-	Result AddFollower();
+	Result AddFollower(Follower* newFollower);
 	Result RemoveFollower();
 	int NumFollowers();
 	Result MessegeAll();

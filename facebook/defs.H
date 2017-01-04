@@ -2,7 +2,7 @@
 #define _DEFS_H_
 
 // Admin login (name_ is the social network name)
-#define ADMIN_LOGIN_SUCCESS "Hi, Administrator. Welcome to " << name_
+#define ADMIN_LOGIN_SUCCESS "Hi, Administrator. Welcome to " << netName_ //we changed the name
 #define ADMIN_LOGIN_FAIL "Failed to login as admin"
 
 // Login

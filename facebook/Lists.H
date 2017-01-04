@@ -18,7 +18,7 @@ private:
 	static NodeFollower* firstNode_;
 
 public:
-	NodeFollower(int i);
+	NodeFollower(int i=NULL);
 	~NodeFollower();
 	Follower* SetIteratorFirst();
 	Follower* SetIteratorNext();
@@ -39,7 +39,7 @@ private:
 	static NodeLeader* firstNode_;
 
 public:
-	NodeLeader();
+	NodeLeader(int i=NULL);
 	~NodeLeader();
 	Leader* SetIteratorFirst();
 	Leader* SetIteratorNext();

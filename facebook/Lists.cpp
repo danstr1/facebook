@@ -82,7 +82,7 @@ Result PrintAllMember()const;
 /************************LEADER****************/
 
 
-NodeLeader::NodeLeader() {
+NodeLeader::NodeLeader(int i = NULL) {
 	currentSize_ = 0;
 	iterator_ = NULL;
 	firstNode_ = NULL;

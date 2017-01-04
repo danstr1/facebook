@@ -29,7 +29,7 @@ public:
 	void PrintF(Follower* toBeChecked);
 	void setLeader(bool isLeader);
 	bool isLeader();
-
+	string getPassword();
 	void Destroy();
 	Follower* Copy();
 
