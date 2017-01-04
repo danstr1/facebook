@@ -25,7 +25,7 @@ private:
 class MessageBox
 {
 public:
-	MessageBox();
+	MessageBox(int i);
 	~MessageBox();
 	void Add(Message newMessage);
 	int Size()const;

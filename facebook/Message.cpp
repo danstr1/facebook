@@ -27,7 +27,7 @@ Message::Message() {
 	return;
 }
 
-MessageBox::MessageBox(){
+MessageBox::MessageBox(int i=NULL){
 	currentSize_ = 0;
 	firstNode_ = NULL;
 	next_ = NULL;

@@ -18,7 +18,7 @@ private:
 	static NodeFollower* firstNode_;
 
 public:
-	NodeFollower();
+	NodeFollower(int i);
 	~NodeFollower();
 	Follower* SetIteratorFirst();
 	Follower* SetIteratorNext();

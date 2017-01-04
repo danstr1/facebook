@@ -1,6 +1,6 @@
 #include<iostream>
 #include "Lists.H"
-NodeFollower::NodeFollower(){
+NodeFollower::NodeFollower(int i=NULL){
 	currentSize_ = 0;
 	iterator_ = NULL;
 	firstNode_ = NULL;

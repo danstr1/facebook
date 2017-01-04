@@ -38,12 +38,12 @@ public:
 	// General actions
 	void FindUser(string partialName);
 private:
+	Follower* FindUserByEmail(string email);
 	string netName_;
 	string netPass_;
 	NodeFollower listFollower_;
 	NodeLeader listLeader_;
-	* userIdentity
-	bool isUserConnected_
+	Follower* userConnected_;
 };
 
 #endif
