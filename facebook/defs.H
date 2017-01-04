@@ -1,8 +1,8 @@
 #ifndef _DEFS_H_
 #define _DEFS_H_
 
-// Admin login
-#define ADMIN_LOGIN_SUCCESS "Hi, Administrator. Welcome to "
+// Admin login (name_ is the social network name)
+#define ADMIN_LOGIN_SUCCESS "Hi, Administrator. Welcome to " << name_
 #define ADMIN_LOGIN_FAIL "Failed to login as admin"
 
 // Login
@@ -67,6 +67,5 @@
 
 
 enum Result {FAILURE, SUCCESS};
-
 
 #endif

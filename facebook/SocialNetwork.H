@@ -4,8 +4,6 @@
 #include "defs.H"
 #include <string>
 using namespace std;
-
-
 class SocialNetwork {
 public:
 	SocialNetwork(string name, string password);
