@@ -44,8 +44,8 @@ private:
 	Follower* FindUserByEmail(string email);
 	string netName_;
 	string netPass_;
-	NodeFollower listFollower_;
-	NodeLeader listLeader_;
+	ListFollower listFollower_;
+	ListFollower listLeader_;
 	Follower* userConnected_;
 	int typeCurrentUser_;
 };

@@ -35,8 +35,8 @@ private:
 	string name_;
 	string email_;
 	string password_;
-	NodeFollower friendList_;
-	NodeFollower friendRequst_;
+	ListFollower friendList_;
+	ListFollower friendRequst_;
 	MessageBox messageList_;
 	bool isLeader_;
 };
