@@ -82,11 +82,11 @@ Result Follower::RemoveFriendRequest(Follower* toBeRemoved)
 Result Follower::RemoveFriend(Follower* toBeRemoved)
 {
 	Follower* curFollower = friendList_.SetIteratorFirst();
-	// Loop over all followers in network
+	// Loop over all friendlist in of the follower
 	for (int i = 0; curFollower != NULL; ++i)
 	{
 		if (curFollower->email_ == toBeRemoved->email_) {
-			curFollower->friendList_.ListRemove();
+			friendList_.ListRemove();
 			return SUCCESS;
 		}
 		curFollower = friendList_.SetIteratorNext();
@@ -98,13 +98,14 @@ Result Follower::AddUserToFriendList(Follower* toBeInserted) {
 	if (friendList_.ListAdd(toBeInserted) == FAILURE)
 		return FAILURE;
 	return SUCCESS;
-
 }
+
 Result Follower::AddUserToFriendRequest(Follower* toBeInserted) {
 	if (friendRequst_.ListAdd(toBeInserted) == FAILURE)
 		return FAILURE;
 	return SUCCESS;
 }
+
 Result Follower::CheckIfFriend(Follower* toBeChecked) {
 	Follower* curFollower = friendList_.SetIteratorFirst();
 	for (int i = 0; curFollower != NULL; ++i)
@@ -114,8 +115,8 @@ Result Follower::CheckIfFriend(Follower* toBeChecked) {
 		curFollower = friendList_.SetIteratorNext();
 	}
 	return FAILURE;
-
 }
+
 Result Follower::CheckIfFriendRequest(Follower* toBeChecked) {
 	Follower* curFollower = friendRequst_.SetIteratorFirst();
 	// Loop over all followers in network

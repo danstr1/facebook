@@ -73,6 +73,7 @@ void SocialNetwork::DeleteUser(string email) {
 		if (curFollower->CheckIfFriend(followerToDelete) == SUCCESS) {
 			curFollower->RemoveFriend(followerToDelete);
 			followerToDelete->RemoveFriend(curFollower);
+			
 		}
 		
 		curFollower = listFollower_.SetIteratorNext();
@@ -87,7 +88,7 @@ void SocialNetwork::DeleteUser(string email) {
 		
 		if (curLeader->CheckIfFriend(followerToDelete) == SUCCESS) {
 			curLeader->RemoveFriend(followerToDelete);
-			followerToDelete->RemoveFriend(curLeader);
+			//followerToDelete->RemoveFriend(curLeader);
 		}
 		if (curLeader->CheckIfFollowing(followerToDelete) == SUCCESS) 
 			curLeader->RemoveFollower(followerToDelete);
