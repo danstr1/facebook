@@ -187,7 +187,7 @@ void SocialNetwork::Follow(string leaderEmail)
 
 void SocialNetwork::CreateFollower(string name, string email, string password)
 {
-	if (typeCurrentUser_ != ADMIN) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE
+	if (typeCurrentUser_ == NOT_CONNECTED) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE
 		cout << CREATE_FOLLOWER_FAIL;
 		return;
 	}
