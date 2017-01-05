@@ -157,5 +157,4 @@ bool Follower::isLeader()
 	return isLeader_;
 }
 
-void Destroy();
-Follower* Copy();
+

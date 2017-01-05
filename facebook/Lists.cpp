@@ -6,7 +6,13 @@ NodeFollower::NodeFollower(int i=NULL){
 	firstNode_ = NULL;
 }
 NodeFollower::~NodeFollower() {
-//write this!!!!!!!!!!!!!!!!!!!!!
+	while (firstNode_ != NULL) {
+		delete follower_;
+		NodeFollower* tmpNodeFollower = firstNode_;
+		firstNode_ = firstNode_->next_;
+		delete tmpNodeFollower;
+	}
+	return;
 }
 
 
@@ -26,8 +32,7 @@ Result NodeFollower::ListAdd(Follower* follower) {
 	if (follower == NULL)
 		return FAILURE;
 	NodeFollower* newFollowerNode = new NodeFollower;
-	Follower *newFollower = follower.Copy();
-	newFollowerNode->follower_ = newFollower;
+	newFollowerNode->follower_ = follower;
 	newFollowerNode->next_ = firstNode_;
 	firstNode_ = newFollowerNode;
 	currentSize_++;
@@ -39,21 +44,22 @@ Follower* NodeFollower::ReturnIteratorData() const{
 }
 
 Result NodeFollower::ListRemove() { //removes the first element in the list
-	if (currentSize_ > 0 && firstNode_ == iterator) {
-		NodeFollower* newFollowerNode = iterator->next_;
-		iterator->follower_.Destroy();
-		delete iterator;
+	if (currentSize_ > 0 && firstNode_ == iterator_) {
+		NodeFollower* newFollowerNode = iterator_->next_;
+		delete iterator_->follower_;
+		delete iterator_;
 		iterator_ = NULL;
 		firstNode_ = newFollowerNode;
 		currentSize_--;
 		return SUCCESS;
 	}
+
 	NodeFollower* newFollowerNode = firstNode_;
 	while (currentSize_ > 1 && newFollowerNode->next_ != iterator_)
 		newFollowerNode = newFollowerNode->next_;
 	if (newFollowerNode->next_ != NULL)
 		newFollowerNode->next_ = newFollowerNode->next_->next_;
-	iterator_->follower_.Destroy();
+	delete iterator_->follower_;
 	delete iterator_;
 	iterator_ = NULL;
 	currentSize_--;
@@ -64,29 +70,12 @@ int NodeFollower::ListSize() const{
 	return currentSize_;
 }
 
-bool NodeFollower::CheckNoEmailExist(string email) const {
-	NodeFollower* nodeFollower = firstNode_;
-	while (nodeFollower)
-	{
-		if (nodeFollower->follower_.GetEmail() == email)
-			return false;
-		nodeFollower = nodeFollower->next_;
-	}
-	return true;
-}
-
-Result PrintAllMember()const;
-{
-
-}
-/************************LEADER****************/
-
-
 NodeLeader::NodeLeader(int i = NULL) {
 	currentSize_ = 0;
 	iterator_ = NULL;
 	firstNode_ = NULL;
 }
+
 NodeLeader::~NodeLeader() {
 	//write this!!!!!!!!!!!!!!!!!!!!!
 }
@@ -144,13 +133,4 @@ Result NodeLeader::ListRemove() {
 int NodeLeader::ListSize() const{
 	return currentSize_;
 }
-bool NodeLeader::CheckNoEmailExist(string email) const {
-	NodeLeader* nodeLeader = firstNode_;
-	while (nodeLeader)
-	{
-		if (nodeLeader->leader_.GetEmail() == email)
-			return false;
-		nodeLeader = nodeLeader->next_;
-	}
-	return true;
-}
+

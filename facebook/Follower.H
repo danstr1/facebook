@@ -26,12 +26,9 @@ public:
 	void MessegeListHelper();
 	void ReadMessegeListHelper(int num);
 	void HelperSendMessage(string email, string subject, string content);
-	void PrintF(Follower* toBeChecked);
 	void setLeader(bool isLeader);
 	bool isLeader();
 	string getPassword();
-	void Destroy();
-	Follower* Copy();
 
 private:
 	string name_;
