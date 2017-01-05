@@ -164,12 +164,20 @@ void SocialNetwork::Follow(string leaderEmail)
 		cout << FOLLOW_FAIL;
 		return;
 	}
+	if (userConnected_->GetEmail() == leaderEmail) {
+		cout << FOLLOW_FAIL;
+		return;
+	}
 	Leader *followerToFollow = (Leader*)FindUserByEmail(leaderEmail);
 	if (followerToFollow == NULL) { //CHECK THAT THIS NOT THE ACCURATE MESSEGE
 		cout << FOLLOW_FAIL;
 		return;
 	}
 	if (followerToFollow->isLeader() == false) {
+		cout << FOLLOW_FAIL;
+		return;
+	}
+	if (followerToFollow->CheckIfFollowing(userConnected_)==SUCCESS) {
 		cout << FOLLOW_FAIL;
 		return;
 	}
