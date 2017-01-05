@@ -5,6 +5,7 @@ NodeFollower::NodeFollower(int i=NULL){
 	iterator_ = NULL;
 	firstNode_ = NULL;
 }
+
 NodeFollower::~NodeFollower() {
 	while (firstNode_ != NULL) {
 		delete follower_;
@@ -14,7 +15,6 @@ NodeFollower::~NodeFollower() {
 	}
 	return;
 }
-
 
 Follower* NodeFollower::SetIteratorFirst() {
 	iterator_ = firstNode_;
