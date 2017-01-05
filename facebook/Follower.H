@@ -9,7 +9,7 @@ using std::string;
 class Follower {
 public:
 	Follower(string name, string email, string password);
-	
+	~Follower();
 	
     string GetName() const;
 	string GetEmail() const;

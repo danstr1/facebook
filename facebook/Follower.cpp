@@ -82,7 +82,6 @@ Result Follower::AddUserToFriendRequest(Follower* toBeInserted) {
 }
 Result Follower::CheckIfFriend(Follower* toBeChecked) {
 	Follower* curFollower = friendList_.SetIteratorFirst();
-	// Loop over all followers in network
 	for (int i = 0; curFollower != NULL; ++i)
 	{
 		if (curFollower->email_ == toBeChecked->email_)

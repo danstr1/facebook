@@ -26,13 +26,88 @@ void SocialNetwork::Login(string email, string password) {
 	}
 	if (activeFollower->GetPassword() == password) {
 		cout << LOGIN_SUCCESS;
-		if (activeFollower->isLeader == true)
+		if (activeFollower->isLeader() == true)
 			typeCurrentUser_ = LEADER;
 		else
 			typeCurrentUser_ = FOLLOWER;
 		//What with ADMIN?!
 		userConnected_ = activeFollower;
 	}
+}
+
+void SocialNetwork::Logout() {
+	if (typeCurrentUser_ == NOT_CONNECTED) {
+		cout << LOGOUT_FAIL;
+		return;
+	}
+	userConnected_ = NULL;
+	typeCurrentUser_ = NOT_CONNECTED;
+	cout << LOGOUT_SUCCESS;
+}
+
+void SocialNetwork::DeleteUser(string email) {
+	if (typeCurrentUser_ != ADMIN) {
+		cout << DELETE_USER_FAIL;
+		return;
+	}
+	Follower *followerToDelete = FindUserByEmail(email);
+	if (followerToDelete == NULL) {
+		cout << DELETE_USER_FAIL;
+		return;
+	}
+
+	Follower* curFollower = listFollower_.SetIteratorFirst();
+	// Loop over all followers in network
+	for (int i = 0; curFollower != NULL; ++i)
+	{
+		if (curFollower->CheckIfFriendRequest(followerToDelete) == SUCCESS)
+			curFollower->RemoveFriendRequest(followerToDelete);
+		else 
+			cout << DELETE_USER_FAIL;
+		if (curFollower->CheckIfFriend(followerToDelete) == SUCCESS) {
+			curFollower->RemoveFriend(followerToDelete);
+			followerToDelete->RemoveFriend(curFollower);
+		}
+		else
+			cout << DELETE_USER_FAIL;
+		curFollower = listFollower_.SetIteratorNext();
+	}
+
+	Leader* curLeader = listLeader_.SetIteratorFirst();
+	// Loop over all leaders in network
+	for (int i = 0; curLeader != NULL; ++i)
+	{
+		if (curLeader->CheckIfFriendRequest(followerToDelete) == SUCCESS)
+			curLeader->RemoveFriendRequest(followerToDelete);
+		else
+			cout << DELETE_USER_FAIL;
+		if (curLeader->CheckIfFriend(followerToDelete) == SUCCESS) {
+			curLeader->RemoveFriend(followerToDelete);
+			followerToDelete->RemoveFriend(curLeader);
+		}
+		else
+			cout << DELETE_USER_FAIL;
+		if (curLeader->CheckIfFollowing(followerToDelete) == SUCCESS) 
+			curLeader->RemoveFollower(followerToDelete);
+		else
+			cout << DELETE_USER_FAIL;
+		curLeader = listLeader_.SetIteratorNext();
+	}
+	delete followerToDelete;
+	cout << DELETE_USER_SUCCESS;
+	return;
+}
+
+void SocialNetwork::BroadcastMessage(string subject, string content) {
+	if (typeCurrentUser_ != LEADER) {
+		cout << BROADCAST_MESSAGE_FAIL;
+		return;
+	}
+	Leader* connectedUser = (Leader*)userConnected_;
+	if (connectedUser->HelperBroadcastMessage(subject, content) == SUCCESS) 
+		cout << BROADCAST_MESSAGE_SUCCESS;
+	else 
+		cout << BROADCAST_MESSAGE_FAIL;
 }
 
 Follower* SocialNetwork::FindUserByEmail(string email)
@@ -226,23 +301,22 @@ void SocialNetwork::AcceptFriendRequest(string friendEmail) {
 void SocialNetwork::FindUser(string partialName)
 {
 	cout << "Followers:" << endl;
+	Follower* curFollower = listFollower_.SetIteratorFirst();
 	// Loop over all followers in network
-	for (int i = 0; ???????????????; ++i)
+	for (int i = 0; curFollower != NULL; ++i)
 	{
-		???????????????
 		if (curFollower->GetName().find(partialName) != string::npos)
 			cout << i + 1 << ") " << curFollower->GetName() << ": " << curFollower->GetEmail() << endl;
-		???????????????
+		curFollower = listFollower_.SetIteratorNext();
 	}
 
-	cout << "Leaders:" << endl;
-	// Loop over all leaders in network
-	for (int i = 0; ???????????????; ++i)
+	Leader* curLeader = listLeader_.SetIteratorFirst();
+	// Loop over all followers in network
+	for (int i = 0; curLeader != NULL; ++i)
 	{
-		???????????????
 		if (curLeader->GetName().find(partialName) != string::npos)
 			cout << i + 1 << ") " << curLeader->GetName() << ": " << curLeader->GetEmail() << endl;
-		???????????????
+		curLeader = listLeader_.SetIteratorNext();
 	}
 }
 
