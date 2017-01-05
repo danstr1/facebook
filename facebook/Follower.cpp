@@ -18,7 +18,7 @@ Follower::~Follower() {
 }
 
 int Follower::NumUnreadMessages() const {
-	return messageList_.Size();
+	return messageList_.UnreadSize();
 }
 
 int Follower::NumFriendRequests() const {

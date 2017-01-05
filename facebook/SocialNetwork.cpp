@@ -210,7 +210,7 @@ void SocialNetwork::ShowFriendList()
 }
 void SocialNetwork::RemoveFriend(string friendEmail)
 {
-	if (typeCurrentUser_ == 0 || userConnected_->GetEmail() == friendEmail) {
+	if (typeCurrentUser_ == NOT_CONNECTED || typeCurrentUser_ == ADMIN || userConnected_->GetEmail() == friendEmail) {
 		std::cout << REMOVE_FRIEND_FAIL;
 		return;
 	}
@@ -231,6 +231,7 @@ void SocialNetwork::RemoveFriend(string friendEmail)
 	}
 	std::cout << REMOVE_FRIEND_SUCCESS;
 }
+
 void SocialNetwork::ShowMessageList()
 {
 	if (typeCurrentUser_ == NOT_CONNECTED|| typeCurrentUser_== ADMIN) {
@@ -270,7 +271,7 @@ void SocialNetwork::SendMessage(string email, string subject, string content)
 
 void SocialNetwork::SendFriendRequest(string friendEmail)
 {
-	if (typeCurrentUser_ == 0 || userConnected_->GetEmail() == friendEmail) {
+	if (typeCurrentUser_ == NOT_CONNECTED || typeCurrentUser_ == ADMIN || userConnected_->GetEmail() == friendEmail) {
 		std::cout << SEND_FRIEND_REQUEST_FAIL;
 		return;
 	}
@@ -290,7 +291,7 @@ void SocialNetwork::SendFriendRequest(string friendEmail)
 }
 
 void SocialNetwork::AcceptFriendRequest(string friendEmail) {
-	if (userConnected_ == NULL) {
+	if (typeCurrentUser_ == NOT_CONNECTED|| typeCurrentUser_ == ADMIN) {
 		cout << ACCEPT_FRIEND_REQUEST_FAIL;
 		return;
 	}
@@ -300,10 +301,10 @@ void SocialNetwork::AcceptFriendRequest(string friendEmail) {
 		cout << ACCEPT_FRIEND_REQUEST_FAIL;
 		return;
 	}
+	friendToAccept->RemoveFriendRequest(userConnected_); //will remove if both users sent a friend request
 	userConnected_->AddUserToFriendList(friendToAccept);
 	friendToAccept->AddUserToFriendList(userConnected_);
 	cout << ACCEPT_FRIEND_REQUEST_SUCCESS;
-		
 }
 
 // General actions

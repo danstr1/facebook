@@ -80,8 +80,10 @@ Result ListMessage::ReadMessage(int messageNum) {
 		messageNum--;
 		Message *curMessage = messageBox->message_;
 		//If messageNum is 0, we get to the desired messege which should be read
-		if (messageNum == 0) //check this!!!!
-			READ_MESSAGE_SUCCESS
+		if (messageNum == 0) { //check this!!!!
+			READ_MESSAGE_SUCCESS;
+			//curMessage->Read=true;
+		}
 		messageBox = messageBox->next_;
 	}
 	return SUCCESS;
