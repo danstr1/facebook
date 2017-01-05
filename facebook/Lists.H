@@ -28,19 +28,19 @@ public:
 	Result ListRemove();
 	int ListSize()const;
 };
-
-
 class NodeLeader {
-private:
+public:
 	Leader* leader_;
 	NodeLeader* next_;
-	static NodeLeader* iterator_;
-	static int currentSize_;
-	static NodeLeader* firstNode_;
-
+	NodeLeader() : leader_(NULL), next_(NULL) {};
+};
+class ListLeader {
+private:
+	NodeLeader* iterator_;
+	int currentSize_;
+	NodeLeader* firstNode_;
 public:
-	NodeLeader(int i=NULL);
-	~NodeLeader();
+	ListLeader() :iterator_(NULL), currentSize_(0), firstNode_(NULL) {};
 	Leader* SetIteratorFirst();
 	Leader* SetIteratorNext();
 	Result ListAdd(Leader* leader);
@@ -48,7 +48,5 @@ public:
 	Result ListRemove();
 	int ListSize()const;
 };
-
-
 
 #endif
