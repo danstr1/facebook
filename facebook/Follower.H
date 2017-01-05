@@ -37,7 +37,7 @@ private:
 	string password_;
 	ListFollower friendList_;
 	ListFollower friendRequst_;
-	MessageBox messageList_;
+	ListMessage messageList_;
 	bool isLeader_;
 };
 

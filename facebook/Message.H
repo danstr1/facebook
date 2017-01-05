@@ -25,20 +25,26 @@ private:
 class MessageBox
 {
 public:
-	MessageBox(int i);
-	~MessageBox();
-	void Add(Message* newMessage);
+	MessageBox() :message_(NULL), next_(NULL) {};
+	Message* message_;
+	MessageBox* next_;
+};
+
+class ListMessage {
+private:
+	int currentSize_;
+	MessageBox* firstNode_;
+public:
+	ListMessage() : currentSize_(0), firstNode_(NULL) {};
+	~ListMessage();
+	void Add(Message* message);
+	Result ListRemove();
 	int Size()const;
 	int UnreadSize()const;
 	void Print()const;
 	Result ReadMessage(int messageNum);
-
-private:
-	Message* message_;
-	MessageBox* next_;
-	//static MessageBox* iterator;
-	static int currentSize_;
-	static MessageBox* firstNode_;
 };
+
+
 
 #endif

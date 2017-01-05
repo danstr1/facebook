@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Follower.H"
 
-Follower::Follower(string name, string email, string password) : name_(name), email_(email), password_(password), friendList_(NULL), friendRequst_(NULL), messageList_(NULL), isLeader_(false) {}
+Follower::Follower(string name, string email, string password) : name_(name), email_(email), password_(password), friendList_(), friendRequst_(), messageList_(), isLeader_(false) {}
 Follower::~Follower() {
 	//need to deal with friendList_,friendRequst_,messageList_
 	Follower* curFollower = friendList_.SetIteratorFirst();
@@ -57,11 +57,11 @@ Result Follower::ShowFriendRequests() {
 }
 
 Result Follower::ShowFriendList() {
-	Follower *curFriend = friendRequst_.SetIteratorFirst();
+	Follower *curFriend = friendList_.SetIteratorFirst();
 	for (int i = 0; curFriend != NULL; i++)
 	{
 		std::cout << SHOW_FRIEND_LIST_SUCCESS;
-		curFriend = friendRequst_.SetIteratorNext();
+		curFriend = friendList_.SetIteratorNext();
 	}
 	return SUCCESS;
 }
@@ -69,11 +69,10 @@ Result Follower::ShowFriendList() {
 Result Follower::RemoveFriendRequest(Follower* toBeRemoved)
 {
 	Follower* curFollower = friendRequst_.SetIteratorFirst();
-	// Loop over all followers in network
 	for (int i = 0; curFollower != NULL; ++i)
 	{
 		if (curFollower->email_ == toBeRemoved->email_) {
-			curFollower->friendRequst_.ListRemove();
+			this->friendRequst_.ListRemove();
 			return SUCCESS;
 		}
 		curFollower = friendRequst_.SetIteratorNext();
@@ -152,8 +151,6 @@ void Follower::HelperSendMessage(string email, string subject, string content)
 {
 	Message* newMessage = new Message(email, subject, content);
 	messageList_.Add(newMessage);
-
-
 
 }
 

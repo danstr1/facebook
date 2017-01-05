@@ -3,8 +3,7 @@
 
 
 Message::Message(string source, string subject, string content) : source_(source), subject_(subject), content_(content), read_(false) {}
-int MessageBox::currentSize_;
-MessageBox* MessageBox::firstNode_;
+
 void Message::Display(int num) const
 {
 	cout << num << ") "<< (read_ ? "" : "(Unread) ") << "From: " << source_ << endl;
@@ -28,15 +27,9 @@ Message::Message() {
 	return;
 }
 
-MessageBox::MessageBox(int i=NULL){
-	MessageBox::currentSize_ = 0;
-	MessageBox::firstNode_ = NULL;
-	next_ = NULL;
-}
-
-MessageBox::~MessageBox() {
+ListMessage::~ListMessage() {
 	while (firstNode_ != NULL) {
-		delete message_;
+		delete firstNode_->message_;
 		MessageBox* tmpMessageBox = firstNode_;
 		firstNode_ = firstNode_->next_;
 		delete tmpMessageBox;
@@ -44,7 +37,7 @@ MessageBox::~MessageBox() {
 	return;
 }
 
-void MessageBox::Add(Message* newMessage) {
+void ListMessage::Add(Message* newMessage) {
 	MessageBox* messageBox;
 	messageBox = new MessageBox;
 	messageBox->message_ = newMessage;
@@ -53,11 +46,11 @@ void MessageBox::Add(Message* newMessage) {
 	currentSize_++;
 }
 
-int MessageBox::Size() const {
+int ListMessage::Size() const {
 	return currentSize_;
 }
 
-int MessageBox::UnreadSize() const {
+int ListMessage::UnreadSize() const {
 	int count = 0;
 	MessageBox* messageBox=firstNode_;
 	while (messageBox)
@@ -69,8 +62,8 @@ int MessageBox::UnreadSize() const {
 	return count;
 }
 
-void MessageBox::Print() const {
-	int count = 0; //check if 1?
+void ListMessage::Print() const {
+	int count = 1; //check if 1?
 	MessageBox* messageBox = firstNode_;
 	while (messageBox)
 	{
@@ -80,11 +73,11 @@ void MessageBox::Print() const {
 	}
 }
 
-Result MessageBox::ReadMessage(int messageNum) {
+Result ListMessage::ReadMessage(int messageNum) {
 	MessageBox* messageBox = firstNode_;
 	while (messageBox)
 	{
-		messageBox--;
+		messageNum--;
 		Message *curMessage = messageBox->message_;
 		//If messageNum is 0, we get to the desired messege which should be read
 		if (messageNum == 0) //check this!!!!

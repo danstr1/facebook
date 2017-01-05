@@ -5,7 +5,7 @@ class Leader : public Follower{
 
 
 public:
-	Leader(string name, string email, string password) : Follower(name, email, password), followList_( NULL) { setLeader(true); }
+	Leader(string name, string email, string password) : Follower(name, email, password), followList_( ) { setLeader(true); }
 	~Leader();
 	Result CheckIfFollowing(Follower* follower);
 	Result AddFollower(Follower* newFollower);
@@ -13,7 +13,7 @@ public:
 	Result HelperBroadcastMessage(string subject, string content);
 
 private:
-	NodeFollower followList_;
+	ListFollower followList_;
 
 
 

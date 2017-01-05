@@ -1,15 +1,6 @@
 #include "SocialNetwork.H"
 #include <iostream>
 
-SocialNetwork::SocialNetwork(string name, string password) { 
-	netName_ = name;
-	netPass_ = password;
-	listFollower_ = NULL;
-	listLeader_ = NULL;
-	typeCurrentUser_ = ADMIN;
-	userConnected_ = NULL;
-	
-}
 SocialNetwork::~SocialNetwork()
 {
 	//need to deal with listFollower_,listLeader_
@@ -18,7 +9,6 @@ SocialNetwork::~SocialNetwork()
 		delete curFollower;
 		curFollower = listFollower_.SetIteratorNext();
 	}
-
 	Leader* curLeader = listLeader_.SetIteratorFirst();
 	while (curLeader != NULL) {
 		delete curLeader;
@@ -27,10 +17,12 @@ SocialNetwork::~SocialNetwork()
 }
 
 void SocialNetwork::AdminLogin(string password) {
-	if (password != netPass_)
+	if (password != netPass_) {
 		cout << ADMIN_LOGIN_FAIL;
-	else
-		cout << ADMIN_LOGIN_SUCCESS;
+		return;
+	}
+	cout << ADMIN_LOGIN_SUCCESS;
+	typeCurrentUser_ = ADMIN;
 }
 
 void SocialNetwork::Login(string email, string password) {
@@ -77,14 +69,12 @@ void SocialNetwork::DeleteUser(string email) {
 	{
 		if (curFollower->CheckIfFriendRequest(followerToDelete) == SUCCESS)
 			curFollower->RemoveFriendRequest(followerToDelete);
-		else 
-			cout << DELETE_USER_FAIL;
+		
 		if (curFollower->CheckIfFriend(followerToDelete) == SUCCESS) {
 			curFollower->RemoveFriend(followerToDelete);
 			followerToDelete->RemoveFriend(curFollower);
 		}
-		else
-			cout << DELETE_USER_FAIL;
+		
 		curFollower = listFollower_.SetIteratorNext();
 	}
 
@@ -94,21 +84,21 @@ void SocialNetwork::DeleteUser(string email) {
 	{
 		if (curLeader->CheckIfFriendRequest(followerToDelete) == SUCCESS)
 			curLeader->RemoveFriendRequest(followerToDelete);
-		else
-			cout << DELETE_USER_FAIL;
+		
 		if (curLeader->CheckIfFriend(followerToDelete) == SUCCESS) {
 			curLeader->RemoveFriend(followerToDelete);
 			followerToDelete->RemoveFriend(curLeader);
 		}
-		else
-			cout << DELETE_USER_FAIL;
 		if (curLeader->CheckIfFollowing(followerToDelete) == SUCCESS) 
 			curLeader->RemoveFollower(followerToDelete);
-		else
-			cout << DELETE_USER_FAIL;
 		curLeader = listLeader_.SetIteratorNext();
 	}
-	delete followerToDelete;
+	//delete followerToDelete;
+	followerToDelete = FindUserByEmail(email);
+	if (followerToDelete->isLeader() == true)
+		listLeader_.ListRemove();
+	else
+		listFollower_.ListRemove();
 	cout << DELETE_USER_SUCCESS;
 	return;
 }
@@ -131,8 +121,10 @@ Follower* SocialNetwork::FindUserByEmail(string email)
 	// Loop over all followers in network
 	for (int i = 0; curFollower!=NULL; ++i)
 	{
-		if (curFollower->GetEmail() == email)
+		if (curFollower->GetEmail() == email) {
+			curFollower->setLeader(false);
 			return curFollower;
+		}
 		curFollower = listFollower_.SetIteratorNext();
 	}
 
@@ -140,8 +132,10 @@ Follower* SocialNetwork::FindUserByEmail(string email)
 	// Loop over all followers in network
 	for (int i = 0; curLeader != NULL; ++i)
 	{
-		if (curLeader->GetEmail() == email)
+		if (curLeader->GetEmail() == email) {
+			curLeader->setLeader(true);
 			return curLeader;
+		}
 		curLeader = listLeader_.SetIteratorNext();
 	}
 	return NULL;
@@ -180,7 +174,7 @@ void SocialNetwork::Follow(string leaderEmail)
 		return;
 	}
 	followerToFollow->AddFollower(userConnected_);
-
+	cout << FOLLOW_SUCCESS;
 }
 
 void SocialNetwork::CreateFollower(string name, string email, string password)
@@ -239,7 +233,7 @@ void SocialNetwork::RemoveFriend(string friendEmail)
 }
 void SocialNetwork::ShowMessageList()
 {
-	if (typeCurrentUser_ == 0) {
+	if (typeCurrentUser_ == NOT_CONNECTED|| typeCurrentUser_== ADMIN) {
 		std::cout << SHOW_MESSAGE_LIST_FAIL;
 		return;
 	}
@@ -248,7 +242,7 @@ void SocialNetwork::ShowMessageList()
 
 void SocialNetwork::ReadMessage(int messageNum)
 {
-	if (typeCurrentUser_ == 0) {
+	if (typeCurrentUser_ == NOT_CONNECTED || typeCurrentUser_ == ADMIN) {
 		std::cout << READ_MESSAGE_FAIL;
 		return;
 	}
@@ -257,7 +251,7 @@ void SocialNetwork::ReadMessage(int messageNum)
 
 void SocialNetwork::SendMessage(string email, string subject, string content)
 {
-	if (typeCurrentUser_ == 0) {
+	if (typeCurrentUser_ == NOT_CONNECTED || typeCurrentUser_ == ADMIN) {
 		std::cout << SEND_MESSAGE_FAIL;
 		return;
 	}
@@ -325,6 +319,7 @@ void SocialNetwork::FindUser(string partialName)
 		curFollower = listFollower_.SetIteratorNext();
 	}
 
+	cout << "Leaders:" << endl;
 	Leader* curLeader = listLeader_.SetIteratorFirst();
 	// Loop over all followers in network
 	for (int i = 0; curLeader != NULL; ++i)

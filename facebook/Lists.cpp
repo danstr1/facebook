@@ -36,7 +36,7 @@ Follower* ListFollower::ReturnIteratorData() const{
 Result ListFollower::ListRemove() { //removes the first element in the list
 	if (currentSize_ > 0 && firstNode_ == iterator_) {
 		NodeFollower* newFollowerNode = iterator_->next_;
-		delete iterator_->follower_;
+		//delete iterator_->follower_;
 		delete iterator_;
 		iterator_ = NULL;
 		firstNode_ = newFollowerNode;
@@ -49,7 +49,7 @@ Result ListFollower::ListRemove() { //removes the first element in the list
 		newFollowerNode = newFollowerNode->next_;
 	if (newFollowerNode->next_ != NULL)
 		newFollowerNode->next_ = newFollowerNode->next_->next_;
-	delete iterator_->follower_;
+	//delete iterator_->follower_;
 	delete iterator_;
 	iterator_ = NULL;
 	currentSize_--;
@@ -94,7 +94,7 @@ Leader* ListLeader::ReturnIteratorData() const {
 Result ListLeader::ListRemove() { //removes the first element in the list
 	if (currentSize_ > 0 && firstNode_ == iterator_) {
 		NodeLeader* newLeaderNode = iterator_->next_;
-		delete iterator_->leader_;
+		//delete iterator_->leader_;
 		delete iterator_;
 		iterator_ = NULL;
 		firstNode_ = newLeaderNode;
@@ -107,7 +107,7 @@ Result ListLeader::ListRemove() { //removes the first element in the list
 		newLeaderNode = newLeaderNode->next_;
 	if (newLeaderNode->next_ != NULL)
 		newLeaderNode->next_ = newLeaderNode->next_->next_;
-	delete iterator_->leader_;
+	//delete iterator_->leader_;
 	delete iterator_;
 	iterator_ = NULL;
 	currentSize_--;

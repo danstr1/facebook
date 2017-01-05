@@ -9,7 +9,7 @@
 using namespace std;
 class SocialNetwork {
 public:
-	SocialNetwork(string name, string password);
+	SocialNetwork(string name, string password) : netName_(name), netPass_(password), listFollower_(), listLeader_(), userConnected_(NULL), typeCurrentUser_(NOT_CONNECTED) {};
 	~SocialNetwork();
 
 	void AdminLogin(string password);
@@ -45,7 +45,7 @@ private:
 	string netName_;
 	string netPass_;
 	ListFollower listFollower_;
-	ListFollower listLeader_;
+	ListLeader listLeader_;
 	Follower* userConnected_;
 	int typeCurrentUser_;
 };
