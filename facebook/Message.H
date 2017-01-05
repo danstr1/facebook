@@ -36,7 +36,7 @@ private:
 	MessageBox* firstNode_;
 public:
 	ListMessage() : currentSize_(0), firstNode_(NULL) {};
-	~ListMessage();
+	//~ListMessage();
 	void Add(Message* message);
 	Result ListRemove();
 	int Size()const;

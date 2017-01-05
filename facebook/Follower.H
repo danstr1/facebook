@@ -8,7 +8,7 @@ using std::string;
 class Follower {
 public:
 	Follower(string name, string email, string password);
-	~Follower();
+	//~Follower();
 	
 	int NumUnreadMessages() const;
 	int NumFriendRequests() const;

@@ -27,15 +27,15 @@ Message::Message() {
 	return;
 }
 
-ListMessage::~ListMessage() {
-	while (firstNode_ != NULL) {
+//ListMessage::~ListMessage() {
+	/*while (firstNode_ != NULL) {
 		delete firstNode_->message_;
 		MessageBox* tmpMessageBox = firstNode_;
 		firstNode_ = firstNode_->next_;
 		delete tmpMessageBox;
 	}
 	return;
-}
+*///}
 
 void ListMessage::Add(Message* newMessage) {
 	MessageBox* messageBox;

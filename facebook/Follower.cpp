@@ -2,9 +2,9 @@
 #include "Follower.H"
 
 Follower::Follower(string name, string email, string password) : name_(name), email_(email), password_(password), friendList_(), friendRequst_(), messageList_(), isLeader_(false) {}
-Follower::~Follower() {
+//Follower::~Follower() {
 	//need to deal with friendList_,friendRequst_,messageList_
-	Follower* curFollower = friendList_.SetIteratorFirst();
+	/*Follower* curFollower = friendList_.SetIteratorFirst();
 	while (curFollower != NULL) {
 		delete curFollower;
 		curFollower = friendList_.SetIteratorNext();
@@ -14,8 +14,8 @@ Follower::~Follower() {
 		delete curFollower;
 		curFollower = friendRequst_.SetIteratorNext();
 	}
-
-}
+	*/
+//}
 
 int Follower::NumUnreadMessages() const {
 	return messageList_.UnreadSize();

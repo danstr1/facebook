@@ -93,12 +93,13 @@ void SocialNetwork::DeleteUser(string email) {
 			curLeader->RemoveFollower(followerToDelete);
 		curLeader = listLeader_.SetIteratorNext();
 	}
-	//delete followerToDelete;
+	
 	followerToDelete = FindUserByEmail(email);
 	if (followerToDelete->isLeader() == true)
 		listLeader_.ListRemove();
 	else
 		listFollower_.ListRemove();
+	delete followerToDelete;
 	cout << DELETE_USER_SUCCESS;
 	return;
 }
