@@ -1,9 +1,14 @@
 #include<iostream>
 #include "Leader.H"
 Leader::~Leader() {
-	//need to deal with followList_ and the original follower
-
+	//need to deal with followList_ and the original follower (will run follower de'tor after leader de'tor)
+	Follower* curFollower = followList_.SetIteratorFirst();
+	while (curFollower != NULL) {
+		delete curFollower;
+		curFollower = followList_.SetIteratorNext();
+	}
 }
+
 Result Leader::AddFollower(Follower* newFollower)
 {
 	if(followList_.ListAdd(newFollower)==FAILURE)

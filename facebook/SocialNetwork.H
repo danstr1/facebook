@@ -1,7 +1,5 @@
 #ifndef _SOCIALNETWORK_H
 #define _SOCIALNETWORK_H
-#include "Lists.H"
-#include "defs.H"
 #include "Leader.H"
 #include <string>
 #define NOT_CONNECTED 0

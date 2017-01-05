@@ -3,7 +3,8 @@
 
 
 Message::Message(string source, string subject, string content) : source_(source), subject_(subject), content_(content), read_(false) {}
-
+int MessageBox::currentSize_;
+MessageBox* MessageBox::firstNode_;
 void Message::Display(int num) const
 {
 	cout << num << ") "<< (read_ ? "" : "(Unread) ") << "From: " << source_ << endl;
@@ -28,8 +29,8 @@ Message::Message() {
 }
 
 MessageBox::MessageBox(int i=NULL){
-	currentSize_ = 0;
-	firstNode_ = NULL;
+	MessageBox::currentSize_ = 0;
+	MessageBox::firstNode_ = NULL;
 	next_ = NULL;
 }
 
@@ -90,4 +91,5 @@ Result MessageBox::ReadMessage(int messageNum) {
 			READ_MESSAGE_SUCCESS
 		messageBox = messageBox->next_;
 	}
+	return SUCCESS;
 }

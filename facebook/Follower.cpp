@@ -17,6 +17,18 @@ Follower::~Follower() {
 
 }
 
+int Follower::NumUnreadMessages() const {
+	return messageList_.Size();
+}
+
+int Follower::NumFriendRequests() const {
+	return friendRequst_.ListSize();
+}
+
+string Follower::GetPassword() const {
+	return password_;
+}
+
 string Follower::GetName() const {
 	return name_;
 }

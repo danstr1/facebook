@@ -1,7 +1,6 @@
 #ifndef _FOLLOWER_H_
 #define _FOLLOWER_H_
 #include "Lists.H"
-#include "defs.H"
 #include "Message.H"
 #include <string>
 
@@ -11,12 +10,14 @@ public:
 	Follower(string name, string email, string password);
 	~Follower();
 	
+	int NumUnreadMessages() const;
+	int NumFriendRequests() const;
+	string GetPassword() const;
     string GetName() const;
 	string GetEmail() const;
 	bool isPassword(string password) const;
 	Result ShowFriendRequests();
 	Result ShowFriendList();
-	Result ShowFriendRequests();
 	Result RemoveFriendRequest(Follower* toBeRemoved);
 	Result RemoveFriend(Follower* toBeRemoved);
 	Result AddUserToFriendList(Follower* toBeInserted);

@@ -13,7 +13,19 @@ SocialNetwork::SocialNetwork(string name, string password) {
 SocialNetwork::~SocialNetwork()
 {
 	//need to deal with listFollower_,listLeader_
+	Follower* curFollower = listFollower_.SetIteratorFirst();
+	while (curFollower != NULL) {
+		delete curFollower;
+		curFollower = listFollower_.SetIteratorNext();
+	}
+
+	Leader* curLeader = listLeader_.SetIteratorFirst();
+	while (curLeader != NULL) {
+		delete curLeader;
+		curLeader = listLeader_.SetIteratorNext();
+	}
 }
+
 void SocialNetwork::AdminLogin(string password) {
 	if (password != netPass_)
 		cout << ADMIN_LOGIN_FAIL;
@@ -147,7 +159,7 @@ void SocialNetwork::CreateLeader(string name, string email, string password)
 		return;
 	}
 	Leader* newLeader = new Leader(name, email, password);
-	listFollower_.ListAdd(newLeader);
+	listLeader_.ListAdd(newLeader);
 	cout << CREATE_LEADER_SUCCESS;
 
 

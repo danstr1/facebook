@@ -1,7 +1,6 @@
 #ifndef _LISTS_H_
 #define _LISTS_H_
 #include <string>
-
 #include "defs.H"
 
 using std::string;
@@ -10,23 +9,24 @@ class Follower;
 class Leader;
 
 class NodeFollower {
-private:
+public:
 	Follower* follower_;
 	NodeFollower* next_;
-	static NodeFollower* iterator_;
-	static int currentSize_;
-	static NodeFollower* firstNode_;
-
+	NodeFollower() : follower_(NULL), next_(NULL) {};
+};
+class ListFollower {
+private:
+	 NodeFollower* iterator_;
+	 int currentSize_;
+	 NodeFollower* firstNode_;
 public:
-	NodeFollower(int i=NULL);
-	~NodeFollower();
+	ListFollower() :iterator_(NULL), currentSize_(0), firstNode_(NULL) {};
 	Follower* SetIteratorFirst();
 	Follower* SetIteratorNext();
 	Result ListAdd(Follower* follower);
 	Follower* ReturnIteratorData()const;
 	Result ListRemove();
 	int ListSize()const;
-	bool CheckNoEmailExist(string email) const;
 };
 
 
@@ -47,7 +47,6 @@ public:
 	Leader* ReturnIteratorData()const;
 	Result ListRemove();
 	int ListSize()const;
-	bool CheckNoEmailExist(string email)const;
 };
 
 

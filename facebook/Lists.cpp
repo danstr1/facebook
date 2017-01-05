@@ -1,49 +1,39 @@
 #include<iostream>
 #include "Lists.H"
-NodeFollower::NodeFollower(int i=NULL){
-	currentSize_ = 0;
-	iterator_ = NULL;
-	firstNode_ = NULL;
-}
+#include "Leader.H"
 
-NodeFollower::~NodeFollower() {
-	while (firstNode_ != NULL) {
-		delete follower_;
-		NodeFollower* tmpNodeFollower = firstNode_;
-		firstNode_ = firstNode_->next_;
-		delete tmpNodeFollower;
-	}
-	return;
-}
 
-Follower* NodeFollower::SetIteratorFirst() {
+Follower* ListFollower::SetIteratorFirst() {
+	if (firstNode_ == NULL)
+		return NULL;
 	iterator_ = firstNode_;
 	return iterator_->follower_;
 }
 
-Follower* NodeFollower::SetIteratorNext() {
+Follower* ListFollower::SetIteratorNext() {
 	if (iterator_ == NULL || iterator_->next_ == NULL)
 		return NULL;
 	iterator_ = iterator_->next_;
 	return iterator_->follower_;
 }
 
-Result NodeFollower::ListAdd(Follower* follower) {
+Result ListFollower::ListAdd(Follower* follower) {
 	if (follower == NULL)
 		return FAILURE;
 	NodeFollower* newFollowerNode = new NodeFollower;
 	newFollowerNode->follower_ = follower;
 	newFollowerNode->next_ = firstNode_;
 	firstNode_ = newFollowerNode;
+	iterator_ = NULL;
 	currentSize_++;
 	return SUCCESS;
 }
 
-Follower* NodeFollower::ReturnIteratorData() const{
+Follower* ListFollower::ReturnIteratorData() const{
 	return iterator_->follower_;
 }
 
-Result NodeFollower::ListRemove() { //removes the first element in the list
+Result ListFollower::ListRemove() { //removes the first element in the list
 	if (currentSize_ > 0 && firstNode_ == iterator_) {
 		NodeFollower* newFollowerNode = iterator_->next_;
 		delete iterator_->follower_;
@@ -66,77 +56,7 @@ Result NodeFollower::ListRemove() { //removes the first element in the list
 	return SUCCESS;
 }
 
-int NodeFollower::ListSize() const{
+int ListFollower::ListSize() const{
 	return currentSize_;
 }
 // **************************  LEADER ********************//
-
-NodeLeader::NodeLeader(int i = NULL) {
-	currentSize_ = 0;
-	iterator_ = NULL;
-	firstNode_ = NULL;
-}
-NodeLeader::~NodeLeader() {
-	while (firstNode_ != NULL) {
-		delete leader_;
-		NodeLeader* tmpNodeLeader = firstNode_;
-		firstNode_ = firstNode_->next_;
-		delete tmpNodeLeader;
-	}
-	return;
-}
-
-
-Leader* NodeLeader::SetIteratorFirst() {
-	iterator_ = firstNode_;
-	return iterator_->leader_;
-}
-
-Leader* NodeLeader::SetIteratorNext() {
-	if (iterator_ == NULL || iterator_->next_ == NULL)
-		return NULL;
-	iterator_ = iterator_->next_;
-	return iterator_->leader_;
-}
-
-Result NodeLeader::ListAdd(Leader* leader) {
-	if (leader == NULL)
-		return FAILURE;
-	NodeLeader* newLeaderNode = new NodeLeader;
-	newLeaderNode->leader_ = leader;
-	newLeaderNode->next_ = firstNode_;
-	firstNode_ = newLeaderNode;
-	currentSize_++;
-	return SUCCESS;
-}
-
-Leader* NodeLeader::ReturnIteratorData() const {
-	return iterator_->leader_;
-}
-
-Result NodeLeader::ListRemove() { //removes the first element in the list
-	if (currentSize_ > 0 && firstNode_ == iterator_) {
-		NodeLeader* newLeaderNode = iterator_->next_;
-		delete iterator_->leader_;
-		delete iterator_;
-		iterator_ = NULL;
-		firstNode_ = newLeaderNode;
-		currentSize_--;
-		return SUCCESS;
-	}
-
-	NodeLeader* newLeaderNode = firstNode_;
-	while (currentSize_ > 1 && newLeaderNode->next_ != iterator_)
-		newLeaderNode = newLeaderNode->next_;
-	if (newLeaderNode->next_ != NULL)
-		newLeaderNode->next_ = newLeaderNode->next_->next_;
-	delete iterator_->leader_;
-	delete iterator_;
-	iterator_ = NULL;
-	currentSize_--;
-	return SUCCESS;
-}
-
-int NodeLeader::ListSize() const {
-	return currentSize_;
-}
