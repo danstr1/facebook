@@ -10,7 +10,10 @@ SocialNetwork::SocialNetwork(string name, string password) {
 	userConnected_ = NULL;
 	
 }
-
+SocialNetwork::~SocialNetwork()
+{
+	//need to deal with listFollower_,listLeader_
+}
 void SocialNetwork::AdminLogin(string password) {
 	if (password != netPass_)
 		cout << ADMIN_LOGIN_FAIL;

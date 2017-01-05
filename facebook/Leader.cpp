@@ -1,6 +1,9 @@
 #include<iostream>
 #include "Leader.H"
+Leader::~Leader() {
+	//need to deal with followList_ and the original follower
 
+}
 Result Leader::AddFollower(Follower* newFollower)
 {
 	if(followList_.ListAdd(newFollower)==FAILURE)

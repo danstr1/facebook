@@ -34,6 +34,12 @@ MessageBox::MessageBox(int i=NULL){
 }
 
 MessageBox::~MessageBox() {
+	while (firstNode_ != NULL) {
+		delete message_;
+		MessageBox* tmpMessageBox = firstNode_;
+		firstNode_ = firstNode_->next_;
+		delete tmpMessageBox;
+	}
 	return;
 }
 

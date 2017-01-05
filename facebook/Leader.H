@@ -8,6 +8,7 @@ class Leader : public Follower{
 
 public:
 	Leader(string name, string email, string password) : Follower(name, email, password), followList_( NULL) { setLeader(true); }
+	~Leader();
 	Result CheckIfFollowing(Follower* follower);
 	Result AddFollower(Follower* newFollower);
 	int NumFollowers();

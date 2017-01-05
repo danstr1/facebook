@@ -2,6 +2,20 @@
 #include "Follower.H"
 
 Follower::Follower(string name, string email, string password) : name_(name), email_(email), password_(password), friendList_(NULL), friendRequst_(NULL), messageList_(NULL), isLeader_(false) {}
+Follower::~Follower() {
+	//need to deal with friendList_,friendRequst_,messageList_
+	Follower* curFollower = friendList_.SetIteratorFirst();
+	while (curFollower != NULL) {
+		delete curFollower;
+		curFollower = friendList_.SetIteratorNext();
+	}
+	curFollower = friendRequst_.SetIteratorFirst();
+	while (curFollower != NULL) {
+		delete curFollower;
+		curFollower = friendRequst_.SetIteratorNext();
+	}
+
+}
 
 string Follower::GetName() const {
 	return name_;
