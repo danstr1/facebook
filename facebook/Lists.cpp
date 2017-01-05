@@ -69,16 +69,23 @@ Result NodeFollower::ListRemove() { //removes the first element in the list
 int NodeFollower::ListSize() const{
 	return currentSize_;
 }
+// **************************  LEADER ********************//
 
 NodeLeader::NodeLeader(int i = NULL) {
 	currentSize_ = 0;
 	iterator_ = NULL;
 	firstNode_ = NULL;
 }
-
 NodeLeader::~NodeLeader() {
-	//write this!!!!!!!!!!!!!!!!!!!!!
+	while (firstNode_ != NULL) {
+		delete leader_;
+		NodeLeader* tmpNodeLeader = firstNode_;
+		firstNode_ = firstNode_->next_;
+		delete tmpNodeLeader;
+	}
+	return;
 }
+
 
 Leader* NodeLeader::SetIteratorFirst() {
 	iterator_ = firstNode_;
@@ -96,41 +103,40 @@ Result NodeLeader::ListAdd(Leader* leader) {
 	if (leader == NULL)
 		return FAILURE;
 	NodeLeader* newLeaderNode = new NodeLeader;
-	Leader *newLeader = leader.Copy();
-	newLeaderNode->leader_ = newLeader;
+	newLeaderNode->leader_ = leader;
 	newLeaderNode->next_ = firstNode_;
 	firstNode_ = newLeaderNode;
 	currentSize_++;
 	return SUCCESS;
 }
 
-Leader* NodeLeader::ReturnIteratorData() const{
+Leader* NodeLeader::ReturnIteratorData() const {
 	return iterator_->leader_;
 }
 
-Result NodeLeader::ListRemove() {
-	if (currentSize_ > 0 && firstNode_ == iterator) {
-		NodeLeader* newLeaderNode = iterator->next_;
-		iterator->leader_.Destroy();
-		delete iterator;
+Result NodeLeader::ListRemove() { //removes the first element in the list
+	if (currentSize_ > 0 && firstNode_ == iterator_) {
+		NodeLeader* newLeaderNode = iterator_->next_;
+		delete iterator_->leader_;
+		delete iterator_;
 		iterator_ = NULL;
 		firstNode_ = newLeaderNode;
 		currentSize_--;
 		return SUCCESS;
 	}
+
 	NodeLeader* newLeaderNode = firstNode_;
 	while (currentSize_ > 1 && newLeaderNode->next_ != iterator_)
 		newLeaderNode = newLeaderNode->next_;
 	if (newLeaderNode->next_ != NULL)
 		newLeaderNode->next_ = newLeaderNode->next_->next_;
-	iterator_->leader_.Destroy();
+	delete iterator_->leader_;
 	delete iterator_;
 	iterator_ = NULL;
 	currentSize_--;
 	return SUCCESS;
 }
 
-int NodeLeader::ListSize() const{
+int NodeLeader::ListSize() const {
 	return currentSize_;
 }
-
