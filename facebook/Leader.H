@@ -11,7 +11,7 @@ public:
 	Result AddFollower(Follower* newFollower);
 	Result RemoveFollower(Follower* followerToDelete);
 	Result HelperBroadcastMessage(string subject, string content);
-
+	void RemoveAllFollowers();
 private:
 	ListFollower followList_;
 

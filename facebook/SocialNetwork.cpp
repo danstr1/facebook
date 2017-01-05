@@ -88,7 +88,7 @@ void SocialNetwork::DeleteUser(string email) {
 		
 		if (curLeader->CheckIfFriend(followerToDelete) == SUCCESS) {
 			curLeader->RemoveFriend(followerToDelete);
-			//followerToDelete->RemoveFriend(curLeader);
+			followerToDelete->RemoveFriend(curLeader);
 		}
 		if (curLeader->CheckIfFollowing(followerToDelete) == SUCCESS) 
 			curLeader->RemoveFollower(followerToDelete);
@@ -96,10 +96,16 @@ void SocialNetwork::DeleteUser(string email) {
 	}
 	
 	followerToDelete = FindUserByEmail(email);
-	if (followerToDelete->isLeader() == true)
-		listLeader_.ListRemove();
+	if (followerToDelete->isLeader() == true) {
+		Leader* tmp = (Leader *)followerToDelete;
+		tmp->RemoveAllFollowers();
+		listLeader_.ListRemove();//Remove from the main lists
+	}
 	else
 		listFollower_.ListRemove();
+	//Now deleting the messege list:
+	followerToDelete->helperDeleteMessages();
+	//finaly the follower itself:
 	delete followerToDelete;
 	cout << DELETE_USER_SUCCESS;
 	return;

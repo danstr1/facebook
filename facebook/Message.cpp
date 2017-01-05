@@ -36,6 +36,15 @@ Message::Message() {
 	}
 	return;
 *///}
+Result ListMessage::ListRemove() {
+	while (firstNode_ != NULL) {
+		MessageBox* tmp = firstNode_;
+		firstNode_ = firstNode_->next_;
+		delete tmp->message_;
+		delete tmp;
+	}
+	return SUCCESS;
+}
 
 void ListMessage::Add(Message* newMessage) {
 	MessageBox* messageBox;

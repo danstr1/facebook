@@ -166,5 +166,8 @@ bool Follower::isLeader()
 {
 	return isLeader_;
 }
+void Follower::helperDeleteMessages() {
+	messageList_.ListRemove();
+}
 
 

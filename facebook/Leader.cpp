@@ -51,3 +51,12 @@ Result Leader::HelperBroadcastMessage(string subject, string content)
 	}
 	return SUCCESS;
 }
+
+void Leader::RemoveAllFollowers() {
+	Follower* following = followList_.SetIteratorFirst();
+	for (int i = 0; following!=NULL; ++i)
+	{
+		followList_.ListRemove();
+		following = followList_.SetIteratorFirst();
+	}
+}

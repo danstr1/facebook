@@ -30,6 +30,7 @@ public:
 	void setLeader(bool isLeader);
 	bool isLeader();
 	string getPassword();
+	void helperDeleteMessages();
 
 private:
 	string name_;
